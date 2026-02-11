@@ -1,0 +1,35 @@
+/data/
+# Maven
+/target/
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/shelf/
+/workspace.xml
+/httpRequests/
+/mavenHomeManager.xml
+/dataSources/
+/dataSources.local.xml
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# WAS / Tomcat
+/logs/
+/temp/
+/work/
+/.tomcat/
+
+/*.properties
+/*.yml
+/*.yaml

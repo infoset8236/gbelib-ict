@@ -1,0 +1,980 @@
+package kr.go.gbelib.app.common.api;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.json.JSONObject;
+import org.json.XML;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+public class CommonAPI {
+	protected final static Logger log = LoggerFactory.getLogger(CommonAPI.class);
+
+	public final static String ILUS_API_URL = ResourceBundle.getBundle("api").getString("ilus.api.url");
+	public final static String KEYWORD_API_URL = ResourceBundle.getBundle("api").getString("keyword.api.url");
+	public final static String YY_API_URL = ResourceBundle.getBundle("api").getString("yy.api.url");
+
+	public final static String NAVER_LIST_API_URL = "https://openapi.naver.com/v1/search/book.xml";
+	public final static String NAVER_DETAIL_API_URL = "https://openapi.naver.com/v1/search/book_adv.xml";
+	public final static String KAKAO_LIST_API_URL = "https://dapi.kakao.com/v3/search/book";
+	public final static String CURATION_API_URL = "http://q.gbelib.kr/curation/api/boardList.json";
+
+	public final static String DATA_4_LIBRARY_API_URL = ResourceBundle.getBundle("api").getString("data4library.api.url");
+	public final static String DATA_4_LIBRARY_API_KEY = ResourceBundle.getBundle("api").getString("data4library.api.key");
+
+	public final static String NLD_API_URL = "https://nld.go.kr/nopsapi/book/catalogList";
+	public final static String NLD_API_KEY = "3012ca25b2b1d34f6a5510e70d01ac6b7518871a734cb9c1b3670f00cb47a208";
+
+	public final static String NEWS_API_URL = "https://api.newswire.co.kr/rss/region/6";
+
+	public static HttpURLConnection initConn(String urlStr) throws Exception {
+		URL url = new URL(urlStr);
+
+		HttpURLConnection connection = null;
+		connection = (HttpURLConnection) url.openConnection();
+		connection.setRequestProperty("Accept-Charset", "UTF-8");
+		connection.setRequestProperty("Accept-Language", "utf-8,ko;q=0.8,en-us;q=0.5,en;q=0.3");
+		connection.setDoOutput(true);
+		return connection;
+	}
+
+	public static HttpsURLConnection initHttpsConn(String urlStr) throws Exception {
+		URL url = new URL(urlStr);
+
+		HttpsURLConnection connection = null;
+		connection = (HttpsURLConnection) url.openConnection();
+		connection.setRequestMethod("GET");
+		connection.setRequestProperty("Accept-Charset", "UTF-8");
+		connection.setRequestProperty("Accept-Language", "utf-8,ko;q=0.8,en-us;q=0.5,en;q=0.3");
+		connection.setRequestProperty("User-Agent", "Mozilla/5.0"); // https를 호출시 user-agent 필요
+
+		connection.setDoOutput(true);
+		connection.setConnectTimeout(10000);
+		connection.setReadTimeout(10000);
+		return connection;
+	}
+
+	public static Document sendILUS(Map<String, Object> param) {
+		return sendILUS(param, "POST");
+	}
+
+	public static final Charset UTF_8 = Charset.forName("UTF-8");
+
+	public static Document sendILUS(Map<String, Object> param, String post) {
+		long start = System.currentTimeMillis();
+		Document doc = null;
+		HttpURLConnection conn = null;
+
+		try {
+			URL url = new URL(ILUS_API_URL);
+			conn = (HttpURLConnection) url.openConnection();
+
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setDoOutput(true);
+
+			// 파라미터 생성
+			StringBuilder postData = new StringBuilder();
+			if (param != null) {
+				for (Map.Entry<String, Object> entry : param.entrySet()) {
+					if (postData.length() != 0) postData.append("&");
+					postData.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+					postData.append("=");
+					postData.append(URLEncoder.encode(String.valueOf(entry.getValue()), "UTF-8"));
+				}
+
+				log.debug("@@@@@@@@@@@@@@@@@@ ILUS API : " + ILUS_API_URL + "?" + postData);
+				System.out.println("@@@@@@@@@@@@@@@@@@ ILUS API : " + ILUS_API_URL + "?" + postData);
+			}
+
+			// 전송
+			OutputStream os = conn.getOutputStream();
+			os.write(postData.toString().getBytes("UTF-8"));
+			os.flush();
+			os.close();
+
+			// 응답 처리
+			InputStream is = conn.getInputStream();
+
+			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = builderFactory.newDocumentBuilder();
+			doc = builder.parse(is);
+
+			is.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.disconnect();
+			}
+		}
+
+		long end = System.currentTimeMillis();
+		log.debug("@@@@@@@@@@@@@@@@@@ ILUS API TIME : " + (end-start)/1000.0);
+
+		return doc;
+	}
+
+	public static Map<String, Object> sendYyAiAPI(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		OutputStream os = null;
+
+		try {
+			String apiUrl = YY_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			connection.setDoOutput(true);
+
+			ObjectMapper om = new ObjectMapper();
+			String jsonBody = om.writeValueAsString(param);
+
+			log.info("@@@@@@@@@@@@@@@@@@ YY_API_URL : " + apiUrl);
+			log.info("@@@@@@@@@@@@@@@@@@ REQUEST BODY    : " + jsonBody);
+
+			os = connection.getOutputStream();
+			byte[] input = jsonBody.getBytes("UTF-8");
+			os.write(input, 0, input.length);
+			os.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>() {});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { if (os != null) os.close(); } catch (Exception ignore) {}
+			if (connection != null) connection.disconnect();
+		}
+
+		return resultMap;
+	}
+
+	public static Map<String, Object> sendNAVER(Map<String, Object> param, String mode) {
+		return sendNAVER(param, mode, null);
+	}
+
+	public static Map<String, Object> sendNAVER(Map<String, Object> param, String mode, String libCode) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpURLConnection connection = null;
+		String clientId = "TOqdlc19MURV_gFfLqbo";// 애플리케이션 클라이언트 아이디값";
+		String clientSecret = "uYJq9oAl32";// 애플리케이션 클라이언트 시크릿값";
+		if (StringUtils.isNotEmpty(libCode)) {
+			clientId = "G89PYX54Bu3ztIwNpasJ";// 애플리케이션 클라이언트 아이디값";--정보센터
+			clientSecret = "HC3Xprd_vh";// 애플리케이션 클라이언트 시크릿값";--정보센터
+		}
+		BufferedReader br = null;
+		try {
+			String url = mode.toLowerCase().equals("list") ? NAVER_LIST_API_URL : NAVER_DETAIL_API_URL;
+			List<String> paramList = new ArrayList<String>();
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+			}
+			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("X-Naver-Client-Id", clientId);
+			connection.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+			int responseCode = connection.getResponseCode();
+
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.debug("@@@@@@@@@@@@@@@@@@ NAVER API : " + url + "?" + StringUtils.join(paramList, "&"));
+			resultMap = xmlToJson(response.toString()).toMap();;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			try {
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		connection.disconnect();
+		return resultMap;
+	}
+
+
+	public static Map<String, Object> sendKakao(Map<String, Object> param, String mode) {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpsURLConnection connection = null;
+		String rest_api_key = "7469655c1f5e6608afccf48b46aabf0c";// 애플리케이션 클라이언트 아이디값";
+		BufferedReader br = null;
+		try {
+			String url = KAKAO_LIST_API_URL;
+			List<String> paramList = new ArrayList<String>();
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+						paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+			}
+			connection = initHttpsConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			connection.setRequestProperty("Authorization","KakaoAK " + rest_api_key);
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine.trim());
+			}
+			log.error("@@@@@@@@@@@@@@@@@@ KAKAO API : " + url + "?" + StringUtils.join(paramList, "&"));
+
+			ObjectMapper om = new ObjectMapper();
+			if (response.toString().startsWith("[")) {
+				response.insert(0, "{\"data\":");
+				response.append("}");
+			}
+			resultMap = om.readValue(response.toString(), new TypeReference<Map<String, Object>>() {});
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (connection != null) {
+				connection.disconnect();
+			}
+			try {
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException e) {}
+		}
+		return resultMap;
+	}
+
+	public static String getElementValueByName(Document doc, String elementName) {
+		String result = "";
+		if (doc != null) {
+			NodeList nodeList = doc.getElementsByTagName(elementName);
+
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				result = nodeList.item(i).getTextContent();
+			}
+		}
+
+		return result;
+	}
+
+	public static Map<String, String> getFieldData(Document doc) {
+		Map<String, String> result = new HashMap<String, String>();
+		NodeList nodeList = doc.getElementsByTagName("field");
+		NodeList codeResult = doc.getElementsByTagName("code");
+		result.put(codeResult.item(0).getNodeName(), codeResult.item(0).getTextContent());
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node oneNode = nodeList.item(i);
+			if (!"#text".equals(oneNode.getNodeName())) {
+				NamedNodeMap attributes = oneNode.getAttributes();
+				result.put(attributes.getNamedItem("name").getNodeValue(), oneNode.getTextContent());
+			}
+		}
+		return result;
+	}
+
+	public static List<Map<String, String>> getFieldDataList(Document doc) {
+		List<Map<String, String>> result = new ArrayList<Map<String, String>>();
+		NodeList itemList = doc.getElementsByTagName("item");
+		if (itemList != null) {
+			for (int i = 0; i < itemList.getLength(); i++) {
+				Map<String, String> oneCodeInfo = new HashMap<String, String>();
+
+				Node oneItem = itemList.item(i);
+				NodeList childList = oneItem.getChildNodes();
+				for (int j = 0; j < childList.getLength(); j++) {
+					Node oneChild = childList.item(j);
+					String nodeName = oneChild.getNodeName();
+					if (!"#text".equals(nodeName)) {
+						NamedNodeMap attributes = oneChild.getAttributes();
+						oneCodeInfo.put(attributes.getNamedItem("name").getNodeValue(), oneChild.getTextContent());
+					}
+				}
+
+				result.add(oneCodeInfo);
+			}
+		} else {
+			return null;
+		}
+
+
+
+		return result;
+	}
+
+	public static String getCrypt(String text) {
+		return getCrypt(text, null);
+	}
+
+	public static String getCrypt(String text, String browser) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("USERID", "WEB");
+		param.put("className", "action.lnk.LnkCrypt");
+		param.put("vType", "en_duplex");
+		if (StringUtils.isNotEmpty(text)) {
+			try {
+				param.put("vText", URLEncoder.encode(text, "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				param.put("vText", text);
+			}
+		} else {
+			return "";
+		}
+		if (!StringUtils.isEmpty(browser)) {
+			param.put("vBrowser", browser);
+		}
+
+		Document doc = CommonAPI.sendILUS(param, "POST");
+		String code = CommonAPI.getElementValueByName(doc, "code");
+		String field = CommonAPI.getElementValueByName(doc, "field");
+		if (StringUtils.equals(field, "ERROR")) {
+			field = "";
+		}
+
+		if ("0".equals(code)) {
+			return field;
+		} else {
+			return null;
+		}
+	}
+
+	public static String getCryptSimplex(String text) {
+		return getCryptSimplex(text, null);
+	}
+
+	public static String getCryptSimplex(String text, String browser) {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("USERID", "WEB");
+		param.put("className", "action.lnk.LnkCrypt");
+		param.put("vType", "en_simplex");
+		try {
+			param.put("vText", URLEncoder.encode(text, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		// try {
+		// param.put("vText", URLEncoder.encode(text, "UTF-8"));
+		// } catch (UnsupportedEncodingException e) {
+		// return null;
+		// }
+		if (!StringUtils.isEmpty(browser)) {
+			param.put("vBrowser", browser);
+		}
+
+		Document doc = CommonAPI.sendILUS(param, "POST");
+		String code = CommonAPI.getElementValueByName(doc, "code");
+
+		String field = CommonAPI.getElementValueByName(doc, "field");
+		if (StringUtils.equals(field, "ERROR")) {
+			field = "";
+		}
+
+		if ("0".equals(code)) {
+			return field;
+		} else {
+			return null;
+		}
+	}
+
+	public static Map<String, Object> curation(Map<String, Object> param) {
+		long start = System.currentTimeMillis();
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			connection = initConn(CURATION_API_URL);
+			connection.setRequestProperty("Accept", "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01");
+			connection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+			connection.setRequestProperty("Accept-Language", "ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7");
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+				for (String oneKey : keys) {
+					paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+				}
+				log.debug("@@@@@@@@@@@@@@@@@@ CURATION API : " + CURATION_API_URL + "?" + StringUtils.join(paramList, "&"));
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+
+			result = result.substring(15, result.length()-1);
+
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>() {});
+
+			connection.disconnect();
+
+		} catch (Exception e) {
+
+		}
+		long end = System.currentTimeMillis();
+
+		log.debug("@@@@@@@@@@@@@@@@@@ CURATION API TIME : " + (end-start)/1000.0);
+
+		return resultMap;
+	}
+
+	/**
+	 * list - item - field 순서로 파싱
+	 *
+	 * @param doc
+	 */
+	public static Map<String, Object> parseXml(Document doc) {
+		Map<String, Object> result = null;
+		if (doc != null) {
+			NodeList listNodes = doc.getElementsByTagName("list");
+
+			if (listNodes != null) {
+				result = new HashMap<String, Object>();
+				for (int i = 0; i < listNodes.getLength(); i++) {
+					Node listNode = listNodes.item(i);
+					String listNodeKey = listNode.getAttributes().getNamedItem("name").getNodeValue();
+					NodeList itemNodes = listNode.getChildNodes();
+
+					if (itemNodes != null) {
+						List<Object> itemList = new ArrayList<Object>();
+
+						for (int j = 0; j < itemNodes.getLength(); j++) {
+							if (itemNodes.item(j).getNodeName().equals("item")) {
+								Node itemNode = itemNodes.item(j);
+								NodeList fieldNodes = itemNode.getChildNodes();
+
+								if (fieldNodes != null) {
+									Map<String, Object> itemInfo = new HashMap<String, Object>();
+
+									for (int k = 0; k < fieldNodes.getLength(); k++) {
+										if (fieldNodes.item(k).getNodeName().equals("field")) {
+											String fieldKey = fieldNodes.item(k).getAttributes().getNamedItem("name").getNodeValue();
+											String fieldValue = fieldNodes.item(k).getTextContent();
+											itemInfo.put(fieldKey, fieldValue);
+										}
+									}
+									itemList.add(itemInfo);
+								}
+							}
+						}
+						result.put(listNodeKey, itemList);
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * list - item - field 순서로 파싱
+	 *
+	 * @param doc
+	 */
+	public static Map<String, Object> parseXmlIlus(Document doc) {
+		Map<String, Object> result = null;
+		if (doc != null) {
+
+
+			result = new HashMap<String, Object>();
+			String totalCnt = "0";
+
+			NodeList resultNodes = doc.getElementsByTagName("code");
+
+			// 상태 정상코드
+			if(resultNodes.item(0).getTextContent().equals("0")) {
+				result.put("code", "0000");
+			}
+
+			NodeList listNodes = doc.getElementsByTagName("list");
+
+			if (listNodes != null) {
+				for (int i = 0; i < listNodes.getLength(); i++) {
+					Node listNode = listNodes.item(i);
+
+					if(listNodes.item(i).getAttributes().getNamedItem("name").getNodeValue().equals("dsResult")) {
+						String listNodeKey = listNode.getAttributes().getNamedItem("name").getNodeValue();
+						NodeList itemNodes = listNode.getChildNodes();
+
+						if (itemNodes != null) {
+							List<Object> itemList = new ArrayList<Object>();
+
+							for (int j = 0; j < itemNodes.getLength(); j++) {
+
+								if(itemNodes.item(j).getNodeName().equals("item")) {
+									Node itemNode = itemNodes.item(j);
+									NodeList fieldNodes = itemNode.getChildNodes();
+
+									if (fieldNodes != null) {
+										Map<String, Object> itemInfo = new HashMap<String, Object>();
+
+										for (int k = 0; k < fieldNodes.getLength(); k++) {
+											if (fieldNodes.item(k).getNodeName().equals("field")) {
+												String fieldKey = fieldNodes.item(k).getAttributes().getNamedItem("name").getNodeValue();
+												String fieldValue = fieldNodes.item(k).getTextContent();
+												itemInfo.put(fieldKey, fieldValue);
+											}
+										}
+										itemList.add(itemInfo);
+									}
+								}
+							}
+							result.put(listNodeKey, itemList);
+						}
+					}
+
+					if(listNodes.item(i).getAttributes().getNamedItem("name").getNodeValue().equals("dsResultCnt")) {
+						NodeList itemNodes = listNode.getChildNodes();
+
+						if (itemNodes != null) {
+							for (int j = 0; j < itemNodes.getLength(); j++) {
+
+								if(itemNodes.item(j).getNodeName().equals("item")) {
+									Node itemNode = itemNodes.item(j);
+									NodeList fieldNodes = itemNode.getChildNodes();
+
+									if (fieldNodes != null) {
+										for (int k = 0; k < fieldNodes.getLength(); k++) {
+											if (fieldNodes.item(k).getNodeName().equals("field")) {
+												String fieldKey = fieldNodes.item(k).getAttributes().getNamedItem("name").getNodeValue();
+
+												if(fieldKey.equals("CNT")) {
+
+													String fieldValue = fieldNodes.item(k).getTextContent();
+													totalCnt = fieldValue;
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+
+					result.put("totalCnt", totalCnt);
+
+					//페싯 -> 유형별(자료유형)
+					if(listNodes.item(i).getAttributes().getNamedItem("name").getNodeValue().equals("dsFacet_LIMT01")) {
+						String listNodeKey = listNode.getAttributes().getNamedItem("name").getNodeValue();
+						NodeList itemNodes = listNode.getChildNodes();
+
+						if (itemNodes != null) {
+							List<Object> itemList = new ArrayList<Object>();
+
+							for (int j = 0; j < itemNodes.getLength(); j++) {
+
+								if(itemNodes.item(j).getNodeName().equals("item")) {
+									Node itemNode = itemNodes.item(j);
+									NodeList fieldNodes = itemNode.getChildNodes();
+
+									if (fieldNodes != null) {
+										Map<String, Object> itemInfo = new HashMap<String, Object>();
+
+										for (int k = 0; k < fieldNodes.getLength(); k++) {
+											if (fieldNodes.item(k).getNodeName().equals("field")) {
+												String fieldKey = fieldNodes.item(k).getAttributes().getNamedItem("name").getNodeValue();
+												String fieldValue = fieldNodes.item(k).getTextContent();
+												itemInfo.put(fieldKey, fieldValue);
+											}
+										}
+										itemList.add(itemInfo);
+									}
+								}
+							}
+							result.put(listNodeKey, itemList);
+						}
+					}
+
+					//패싯 -> 연도별(발행년)
+					if(listNodes.item(i).getAttributes().getNamedItem("name").getNodeValue().equals("dsFacet_LIMT21")) {
+						String listNodeKey = listNode.getAttributes().getNamedItem("name").getNodeValue();
+						NodeList itemNodes = listNode.getChildNodes();
+
+						if (itemNodes != null) {
+							List<Object> itemList = new ArrayList<Object>();
+
+							for (int j = 0; j < itemNodes.getLength(); j++) {
+
+								if(itemNodes.item(j).getNodeName().equals("item")) {
+									Node itemNode = itemNodes.item(j);
+									NodeList fieldNodes = itemNode.getChildNodes();
+
+									if (fieldNodes != null) {
+										Map<String, Object> itemInfo = new HashMap<String, Object>();
+
+										for (int k = 0; k < fieldNodes.getLength(); k++) {
+											if (fieldNodes.item(k).getNodeName().equals("field")) {
+												String fieldKey = fieldNodes.item(k).getAttributes().getNamedItem("name").getNodeValue();
+												String fieldValue = fieldNodes.item(k).getTextContent();
+												itemInfo.put(fieldKey, fieldValue);
+											}
+										}
+										itemList.add(itemInfo);
+									}
+								}
+							}
+							result.put(listNodeKey, itemList);
+						}
+					}
+
+					//패싯 -> 저자별
+					if(listNodes.item(i).getAttributes().getNamedItem("name").getNodeValue().equals("dsFacet_FCDP01")) {
+						String listNodeKey = listNode.getAttributes().getNamedItem("name").getNodeValue();
+						NodeList itemNodes = listNode.getChildNodes();
+
+						if (itemNodes != null) {
+							List<Object> itemList = new ArrayList<Object>();
+
+							for (int j = 0; j < itemNodes.getLength(); j++) {
+
+								if(itemNodes.item(j).getNodeName().equals("item")) {
+									Node itemNode = itemNodes.item(j);
+									NodeList fieldNodes = itemNode.getChildNodes();
+
+									if (fieldNodes != null) {
+										Map<String, Object> itemInfo = new HashMap<String, Object>();
+
+										for (int k = 0; k < fieldNodes.getLength(); k++) {
+											if (fieldNodes.item(k).getNodeName().equals("field")) {
+												String fieldKey = fieldNodes.item(k).getAttributes().getNamedItem("name").getNodeValue();
+												String fieldValue = fieldNodes.item(k).getTextContent();
+												itemInfo.put(fieldKey, fieldValue);
+											}
+										}
+										itemList.add(itemInfo);
+									}
+								}
+							}
+							result.put(listNodeKey, itemList);
+						}
+					}
+				}
+			}
+			List<Map<String, Object>> dsResult = (List<Map<String, Object>>) result.get("dsResult");
+			if(dsResult == null) {
+				return null;
+			} else {
+				for(Map<String, Object> i: dsResult) {
+					if(i.get("DISP02") != null) {
+						String replace = i.get("DISP02").toString().replace("[32703m", "");
+						String replace1 = replace.replace("[32723m", "");
+						i.put("DISP02", replace1);
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	public static JSONObject xmlToJson(String xmlString) {
+		JSONObject json = XML.toJSONObject(xmlString);
+		return json;
+	}
+
+	public static Map<String, Object> sendData4Library(Map<String, Object> param, String mode) {
+
+		BufferedReader br = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpURLConnection connection = null;
+		try {
+			String url = DATA_4_LIBRARY_API_URL + mode;
+			List<String> paramList = new ArrayList<String>();
+			param.put("authKey", DATA_4_LIBRARY_API_KEY);
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					if (oneKey.equals("authKey")) {
+						paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+					} else {
+						paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
+					}
+				}
+			}
+			connection = initConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API : " + url + "?" + StringUtils.join(paramList, "&"));
+			log.error("@@@@@@@@@@@@@@@@@@ DATA_4_LIBRARY_API RESULT : " + response.toString());
+			resultMap = xmlToJson(response.toString()).toMap();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (connection != null) {
+         			connection.disconnect();
+         		}
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			}
+		}
+		return resultMap;
+
+	}
+
+	/**
+	 * 경북영양 키워드 SEARCH API (Java 6)
+	 */
+	public static Map<String, Object> sendYyKeyword(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		BufferedWriter writer = null;
+		OutputStream os = null;
+
+		try {
+			String apiUrl = YY_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			// POST + JSON 설정
+			connection.setRequestMethod("POST");
+			connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+			connection.setRequestProperty("Accept", "application/json");
+			connection.setDoOutput(true);
+
+			ObjectMapper om = new ObjectMapper();
+
+			// keyword → 배열 변환
+			if (param != null && param.containsKey("keyword")) {
+				String[] keywords = param.get("keyword").toString().split(",");
+				param.put("keyword", keywords);
+			}
+
+			// Map → JSON
+			String jsonBody = om.writeValueAsString(param);
+
+			log.error("@@@@@@@@@@@@@@@@@@ keyword.api.json : " + jsonBody);
+
+			// JSON 전송
+			os = connection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+			writer.write(jsonBody);
+			writer.flush();
+
+			// 응답 읽기
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>() {});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try { if (writer != null) writer.close(); } catch (Exception ignore) {}
+			try { if (os != null) os.close(); } catch (Exception ignore) {}
+			if (connection != null) connection.disconnect();
+		}
+
+		return resultMap;
+	}
+
+	/**
+	 * 경북통합도서관 BOOK SEACH API
+	 * @author KSH 2022. 02. 09.
+	 * @param requestName - 요청명
+	 * @param param 파라미터
+	 * @return
+	 */
+	public static Map<String, Object> sendKEYWORD(String requestName, Map<String, Object> param) {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		try {
+			String apiUrl = KEYWORD_API_URL + requestName;
+			connection = initConn(apiUrl);
+
+			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(wr, "UTF-8"));
+
+			if ( param != null ) {
+				Set<String> keys = param.keySet();
+				List<String> paramList = new ArrayList<String>();
+
+
+				for ( String oneKey : keys ) {
+					if (oneKey.equals("keyword")) {
+						String[] keywords = param.get(oneKey).toString().split(",");
+
+						for (int i = 0; i < keywords.length; i++) {
+							paramList.add(String.format("%s=%s", oneKey, keywords[i]));
+						}
+					} else {
+						paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+					}
+				}
+				log.error("@@@@@@@@@@@@@@@@@@ keyword.api.url : " + apiUrl + "?" + StringUtils.join(paramList, "&"));
+
+				writer.write(StringUtils.join(paramList, "&"));
+			}
+
+			writer.close();
+			wr.close();
+			wr.flush();
+
+			String result = IOUtils.toString(connection.getInputStream(), "UTF-8").trim();
+			ObjectMapper om = new ObjectMapper();
+			resultMap = om.readValue(result, new TypeReference<Map<String, Object>>(){});
+		}
+		catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+
+	public static Map<String, Object> sendNld(Map<String, Object> param) {
+
+		BufferedReader br = null;
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		HttpsURLConnection connection = null;
+		try {
+			String url = NLD_API_URL;
+			List<String> paramList = new ArrayList<String>();
+			param.put("api_key", NLD_API_KEY);
+			if (param != null) {
+				Set<String> keys = param.keySet();
+				for (String oneKey : keys) {
+					if (oneKey.equals("api_key")) {
+						paramList.add(String.format("%s=%s", oneKey, param.get(oneKey)));
+					} else {
+						paramList.add(String.format("%s=%s", oneKey, URLEncoder.encode(String.valueOf(param.get(oneKey)), "UTF-8")));
+					}
+				}
+			}
+			connection = initHttpsConn(url + "?" + StringUtils.join(paramList, "&"));
+			connection.setRequestMethod("GET");
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			log.error("@@@@@@@@@@@@@@@@@@ NLD API : " + url + "?" + StringUtils.join(paramList, "&"));
+			log.error("@@@@@@@@@@@@@@@@@@ NLD RESULT : " + response.toString());
+
+			resultMap = toMap(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (connection != null) {
+         			connection.disconnect();
+         		}
+			} catch (IOException e) {
+				log.error(e.getMessage());
+			}
+		}
+		return resultMap;
+
+	}
+
+	public static String getNews() {
+		HttpURLConnection connection = null;
+		Map<String, Object> resultMap = null;
+		BufferedReader br = null;
+
+		try {
+			connection = initConn(NEWS_API_URL);
+
+			int responseCode = connection.getResponseCode();
+
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(connection.getErrorStream(), "UTF-8"));
+			}
+
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+
+			String result = response.toString();
+			System.out.println("@@@@@@@@@@@@@@@@ NEWS_API_RESULT : " + result);
+
+			return result;
+
+		} catch(Exception e) {
+			System.out.println("################## Exception : " + e);
+		}
+
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	private static Map<String, Object> toMap(StringBuffer response) {
+		Map<String, Object> map = null;
+
+		  try {
+		       map = new ObjectMapper().readValue(response.toString(), Map.class);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return map;
+	}
+}
