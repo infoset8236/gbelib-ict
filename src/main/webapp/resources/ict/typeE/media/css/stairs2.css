@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+}
+
+#container {
+    width: 2880px;
+    height: 2784px !important;
+}
+
+#container div {
+    width: 2880px;
+    height: 2784px !important;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: cover;
+}
+

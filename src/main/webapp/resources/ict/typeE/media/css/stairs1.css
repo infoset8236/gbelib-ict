@@ -1,0 +1,313 @@
+body {
+    margin: 0;
+}
+
+#container {
+    position:absolute;
+    display: flex;
+    overflow:hidden;
+    flex-direction: column;
+    background: linear-gradient(17deg, #00545E 26.85%, rgb(0 84 94 / 0%) 81.8%), linear-gradient(197deg, #4E1A37 -2.91%, #1D1D35 39.27%);
+    inset:0;
+    gap: 0;
+}
+
+#container span {
+    position: absolute;
+    width: 4vmin;   /* 20vmin → 4vmin (1/5 크기) */
+    height: 4vmin;
+    animation-name: move;
+    animation-duration: 6s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    border-radius: 4vmin; /* 원형 유지 */
+    backface-visibility: hidden;
+}
+
+
+
+#container span:nth-child(1) {
+    top: 45%;
+    left: 93%;
+    transform-origin: 18vw 6vh;
+    animation-duration: 13.1s;
+    animation-delay: -0.3s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 2.5vmin currentcolor;
+}
+
+#container span:nth-child(2) {
+    top: 50%;
+    left: 46%;
+    transform-origin: -7vw 16vh;
+    animation-duration: 13s;
+    animation-delay: -4.3s;
+    color: #589EFF;
+    box-shadow: 8vmin 0 2.8vmin currentcolor;
+}
+
+#container span:nth-child(3) {
+    top: 51%;
+    left: 14%;
+    transform-origin: -20vw -4vh;
+    animation-duration: 11.5s;
+    animation-delay: -8.8s;
+    color: #6DE1C2;
+    box-shadow: 8vmin 0 2.5vmin currentcolor;
+}
+
+#container span:nth-child(4) {
+    top: 40%;
+    left: 39%;
+    transform-origin: 1vw 20vh;
+    animation-duration: 12s;
+    animation-delay: -4s;
+    color: #6DE1C2;
+    box-shadow: 8vmin 0 1.1vmin currentcolor;
+}
+
+#container span:nth-child(5) {
+    top: 2%;
+    left: 1%;
+    transform-origin: -15vw 22vh;
+    animation-duration: 16s;
+    animation-delay: -10.8s;
+    color: #6DE1C2;
+    box-shadow: 8vmin 0 1.4vmin currentcolor;
+}
+
+#container span:nth-child(6) {
+    top: 91%;
+    left: 37%;
+    transform-origin: 15vw -2vh;
+    animation-duration: 15.3s;
+    animation-delay: -0.3s;
+    color:#6DE1C2;
+    box-shadow: -8vmin 0 2.2vmin currentcolor;
+}
+
+#container span:nth-child(7) {
+    top: 36%;
+    left: 31%;
+    transform-origin: 24vw 23vh;
+    animation-duration: 13.4s;
+    animation-delay: -10s;
+    color: #6DE1C2;
+    box-shadow: -8vmin 0 1vmin currentcolor;
+}
+
+#container span:nth-child(8) {
+    top: 99%;
+    left: 38%;
+    transform-origin: -11vw -6vh;
+    animation-duration: 11.4s;
+    animation-delay: -8s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 2.9vmin currentcolor;
+}
+
+#container span:nth-child(9) {
+    top: 86%;
+    left: 64%;
+    transform-origin: -4vw 19vh;
+    animation-duration: 13.9s;
+    animation-delay: -0.3s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 1.7vmin currentcolor;
+}
+
+#container span:nth-child(10) {
+    top: 71%;
+    left: 27%;
+    transform-origin: -8vw -16vh;
+    animation-duration: 10.8s;
+    animation-delay: -10.7s;
+    color: #589EFF;
+    box-shadow: 8vmin 0 2.6vmin currentcolor;
+}
+
+#container span:nth-child(11) {
+    top: 49%;
+    left: 43%;
+    transform-origin: -8vw 9vh;
+    animation-duration: 14s;
+    animation-delay: -7.7s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 2.1vmin currentcolor;
+}
+
+#container span:nth-child(12) {
+    top: 98%;
+    left: 60%;
+    transform-origin: 25vw 8vh;
+    animation-duration: 10.1s;
+    animation-delay: -15.5s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 1.6vmin currentcolor;
+}
+
+#container span:nth-child(13) {
+    top: 90%;
+    left: 33%;
+    transform-origin: 7vw 4vh;
+    animation-duration: 12.7s;
+    animation-delay: -5.3s;
+    color: #589EFF;
+    box-shadow: -8vmin 0 1.1vmin currentcolor;
+}
+
+#container span:nth-child(14) {
+    top: 72%;
+    left: 60%;
+    transform-origin: -15vw -1vh;
+    animation-duration: 15.8s;
+    animation-delay: -1.9s;
+    color:#00DBDE;
+    box-shadow: -8vmin 0 2.2vmin currentcolor;
+}
+
+#container span:nth-child(15) {
+    top: 5%;
+    left: 95%;
+    transform-origin: 21vw -9vh;
+    animation-duration: 14.6s;
+    animation-delay: -11.4s;
+    color: #589EFF;
+    box-shadow: -8vmin 0 1.3vmin currentcolor;
+}
+
+#container span:nth-child(16) {
+    top: 51%;
+    left: 75%;
+    transform-origin: 19vw 18vh;
+    animation-duration: 15.5s;
+    animation-delay: -1.6s;
+    color: #589EFF;
+    box-shadow: -8vmin 0 1.9vmin currentcolor;
+}
+
+#container span:nth-child(17) {
+    top: 89%;
+    left: 58%;
+    transform-origin: -3vw -22vh;
+    animation-duration: 14.3s;
+    animation-delay: -16s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 2.4vmin currentcolor;
+}
+
+#container span:nth-child(18) {
+    top: 91%;
+    left: 75%;
+    transform-origin: 8vw 21vh;
+    animation-duration: 13s;
+    animation-delay: -3.5s;
+    color: #589EFF;
+    box-shadow: 8vmin 0 1.5vmin currentcolor;
+}
+
+#container span:nth-child(19) {
+    top: 85%;
+    left: 81%;
+    transform-origin: -20vw 11vh;
+    animation-duration: 14.3s;
+    animation-delay: -15.3s;
+    color: #00DBDE;
+    box-shadow: 8vmin 0 1.6vmin currentcolor;
+}
+
+#container span:nth-child(20) {
+    top: 71%;
+    left: 7%;
+    transform-origin: 5vw -15vh;
+    animation-duration: 14.8s;
+    animation-delay: -15.1s;
+    color: #6DE1C2;
+    box-shadow: -8vmin 0 1vmin currentcolor;
+}
+
+/* 공통 회전 애니메이션 */
+@keyframes move {
+    100% {
+        transform: translate3d(0, 0, 1px) rotate(360deg);
+    }
+}
+
+/* 상단/하단 컨테이너 */
+.top, .bottom {
+    z-index: 1;
+    width: 100%;
+}
+
+.top {
+    display: flex;
+    justify-content: flex-end;
+    height: 1299px;
+}
+
+/* 웰컴 메시지 애니메이션 */
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(150px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.welcomeMessage {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: fit-content;
+    margin-top: 195px;
+    margin-right: 170px;
+    animation: slideInRight 1.4s ease-out forwards;
+    opacity: 0;
+    gap: 32px;
+}
+
+.welcomeMessage div:first-child {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 116px;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -2.9px;
+    color: #FFF;
+}
+
+.welcomeMessage div:last-child {
+    font-family: PretendardRegular, sans-serif;
+    font-size: 34px;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 5.44px;
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+/* 하단 배경 이미지 웅장하게 */
+.bottom {
+    height: 1580px;
+    transform: scale(1.2);
+    animation: grandReveal 2.5s ease-out forwards;
+    opacity: 0;
+    background-image: url("/resources/ict/dglib/media/img/stairs/library.png");
+    background-position: bottom left;
+    background-size: cover;
+}
+
+@keyframes grandReveal {
+    0% {
+        opacity: 0;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

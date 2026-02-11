@@ -1,0 +1,51 @@
+.lib_main_container{
+    background: url("/resources/ict/typeE/info/img/main_bg.png") bottom  center / cover no-repeat;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.lib_main_container .lib_main_top{
+    margin-top: 15.63rem;
+}
+
+
+.lib_main_container .lib_main_top .lib_main_time{
+    color: #FFF;
+    font-family: Century Gothic, sans-serif;
+    font-size: 7.5rem;
+    line-height: normal;
+}
+.lib_main_container .lib_main_top .lib_main_date{
+    color: #FFF;
+    font-family: Pretendard-Regular, sans-serif;
+    font-size: 2.25rem;
+    line-height: normal;
+    margin-top: 0.3rem;
+}
+
+.lib_main_container .lib_main_bottom{
+    margin-top: 50rem;
+    width: 100%;
+    height: 40rem;
+    background-color: #F5F0EE;
+    padding-top: 7.6rem;
+}
+.lib_main_container .lib_main_bottom .lib_main_title{
+    color: #191F28;
+    text-align: center;
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 3.75rem;
+    line-height: 140%;
+    letter-spacing: -0.075rem;
+}
+.lib_main_container .lib_main_bottom .lib_main_caption{
+    color: #8B95A1;
+    text-align: center;
+    font-family: Pretendard-Regular, sans-serif;
+    font-size: 1.375rem;
+    line-height: 150%;
+    letter-spacing: 0.06875rem;
+    margin-top: 1.88rem;
+}

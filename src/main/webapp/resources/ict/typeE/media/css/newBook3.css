@@ -1,0 +1,163 @@
+.naPanel {
+  background:
+    linear-gradient(105deg, rgb(18 22 29 / 50%) 10.68%, rgb(6 32 70 / 50%) 50.29%, rgb(18 22 29 / 50%) 89.9%), linear-gradient(90deg, #12161d 0%, rgb(6 32 70 / 50%) 50%, #12161d 100%),
+    linear-gradient(0deg, #4e1a37 0%, #1d1d35 100%);
+  background-repeat: repeat-x;
+  background-size: 1920px 100%;
+}
+
+.panelHeader {
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 4.375rem;
+  padding: 0 1.875rem;
+}
+
+.panelHeader .panelTitle {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.1875rem;
+}
+
+.panelHeader .panelTitle .panelTitleEn {
+  font-family: PretendardExtraBold, sans-serif;
+  font-size: 0.5rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #8b95a1;
+}
+
+.panelHeader .panelTitle .panelTitleKo {
+  font-family: PretendardMedium, sans-serif;
+  font-size: 0.6875rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  color: #fff;
+}
+
+.panelPagination > span {
+  font-family: PretendardExtraBold, sans-serif;
+  font-size: 0.75rem;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.panelPagination .panelTotal {
+  color: #8b95a1;
+}
+
+.naPanel {
+  position: relative;
+  width: 180rem;
+  height: 100vh;
+}
+
+.naPanel .naList {
+  display: flex;
+  align-items: center;
+}
+
+.naPanel .naList .naItem {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 1920px;
+  height: 100vh;
+  padding: 0 5rem;
+  gap: 3.125rem;
+}
+
+.naPanel .naList .naItem .naImg {
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 13.09375rem;
+  height: 18.75rem;
+  border-radius: 0.9375rem;
+  box-shadow: 25px 60px 100px 0 rgb(0 0 0 / 20%);
+}
+
+.naPanel .naList .naItem .naImg > img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.naPanel .naList .naItem .naContent {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5625rem;
+}
+
+.naPanel .naList .naItem .naContent .naTitle {
+  font-family: PretendardSemiBold, sans-serif;
+  font-size: 2rem;
+  font-style: normal;
+  line-height: 130%;
+  display: -webkit-box;
+  overflow: hidden;
+  letter-spacing: -0.0625rem;
+  text-overflow: ellipsis;
+  color: #fff;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.naPanel .naList .naItem .naContent .naInfo {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  flex-direction: column;
+  gap: 0.3125rem;
+}
+
+.naPanel .naList .naItem .naContent .naInfo > div {
+  font-family: PretendardMedium, sans-serif;
+  font-size: 1.25rem;
+  font-style: normal;
+  line-height: 130%;
+  letter-spacing: -0.03125rem;
+  color: #adb5bd;
+}
+
+.naPanel .naList .naItem .naContent .naDesc {
+  font-family: PretendardMedium, sans-serif;
+  font-size: 1.25rem;
+  font-style: normal;
+  line-height: 150%;
+  display: -webkit-box;
+  overflow: hidden;
+  align-self: stretch;
+  letter-spacing: -0.03125rem;
+  text-overflow: ellipsis;
+  color: #fff;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.noData {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PretendardMedium, sans-serif;
+  font-size: 2.375rem;
+  font-style: normal;
+  line-height: normal;
+  color: #ffffff;
+}

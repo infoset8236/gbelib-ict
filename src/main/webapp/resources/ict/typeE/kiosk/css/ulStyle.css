@@ -1,0 +1,40 @@
+
+
+.libHeader {
+    display: flex;
+    width: 67.5rem;
+    padding: 4.375rem 5.625rem 3.4375rem 5.625rem;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.libHeader .libHeaderEn {
+    color: #ADB5BD;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1rem;
+    line-height: normal;
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+}
+
+.libHeader .libHeaderKo {
+    color: #191F28;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1.875rem;
+    line-height: normal;
+    margin-top: 0.5rem;
+}
+
+.libCopyright {
+    color: #ADB5BD;
+    text-align: center;
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 1rem;
+    line-height: normal;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    position: fixed;
+    left: 50%;
+    bottom: 1.4rem;
+    transform: translateX(-50%);
+}

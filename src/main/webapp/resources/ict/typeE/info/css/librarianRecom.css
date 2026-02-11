@@ -1,0 +1,82 @@
+.Container {
+  background: url("/resources/ict/typeE/info/img/librarianRecom/lib_librarianRecom_bg.png") top left / cover no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slideContainer .slideItemWrapper {
+  padding: 0.5rem 5.62rem;
+}
+.slideContainer .slideItemWrapper .slideGroup {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 5.6rem 3.16rem;
+  margin-right: 6rem;
+}
+
+.slideContainer .slideItemWrapper .bookImage {
+  width: 15.02484rem;
+  height: 23.2375rem;
+  border-radius: 0.825rem;
+  box-shadow: 5.5px 11px 20px 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.slideContainer .slideItemWrapper .bookImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.slideContainer .slideItemWrapper .bookInfo {
+}
+
+.slideContainer .slideItemWrapper .bookInfo .bookTitle {
+  overflow: hidden;
+  color: #191f28;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 1.65rem;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-top: 1.5rem;
+  width: 15rem;
+}
+
+.slideContainer .slideItemWrapper .bookInfo .bookAuthor {
+  overflow: hidden;
+  color: #6b7684;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 1.30625rem;
+  line-height: normal;
+  text-transform: capitalize;
+  margin-top: 0.5rem;
+}
+
+.lib_notice_nodata_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: calc(100vh - 40rem);
+}
+
+.lib_notice_nodata_wrapper img {
+  width: 25rem;
+  height: 25rem;
+}
+
+.lib_notice_nodata_wrapper div {
+  font-family: "Pretendard-Medium", sans-serif;
+  font-size: 2.5rem;
+  line-height: 130%;
+  text-align: center;
+  letter-spacing: -2px;
+  color: #adb5bd;
+}

@@ -1,0 +1,15 @@
+.lib_best_container .swiper-pagination{
+    bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.88rem;
+}
+.lib_best_container .swiper-pagination .swiper-pagination-bullet{
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: #ADB5BD;
+    border-radius: 100%;
+}
+.lib_best_container .swiper-pagination .swiper-pagination-bullet-active{
+    background-color: #191F28;
+}

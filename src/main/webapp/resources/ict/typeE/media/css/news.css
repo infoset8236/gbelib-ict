@@ -1,0 +1,86 @@
+.newsContainer {
+  position: relative;
+  width: 60rem;
+  height: 100vh;
+  background:
+    linear-gradient(105deg, rgb(18 22 29 / 50%) 10.68%, rgb(6 32 70 / 50%) 50.29%, rgb(18 22 29 / 50%) 89.9%), linear-gradient(90deg, #12161d 0%, rgb(6 32 70 / 50%) 50%, #12161d 100%),
+    linear-gradient(0deg, #4e1a37 0%, #1d1d35 100%);
+}
+
+.newsContainer .newsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 60rem;
+  height: 4.375rem;
+  padding: 0 1.875rem;
+}
+.newsContainer .newsHeader .newsHeaderLeft {
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 0.6875rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  color: #fff;
+}
+.newsContainer .newsHeader .newsHeaderRight {
+  font-family: Pretendard-ExtraBold, sans-serif;
+  font-size: 0.5rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #8b95a1;
+}
+
+.newsContainer .newsContent {
+  padding: 0 5rem;
+}
+
+.newsContainer .newsContent .newsTitle {
+  margin-bottom: 1.56rem;
+  color: #fff;
+  font-family: Pretendard-SemiBold, sans-serif;
+  font-size: 1.125rem;
+  line-height: normal;
+  letter-spacing: -0.02813rem;
+  text-transform: uppercase;
+}
+
+.newsContainer .newsContent .newsSlideWrap {
+}
+
+.newsContainer .newsContent .newsSlideWrap .newsSlideItem {
+  display: flex;
+  padding: 1.7rem 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.3125rem;
+  align-self: stretch;
+  border-radius: 0.9375rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 100%), rgba(255, 255, 255, 0.05);
+  margin-bottom: 0.875rem;
+}
+
+.newsContainer .newsContent .newsSlideWrap .newsSlideItem .newsText {
+  overflow: hidden;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: Pretendard-Medium, sans-serif;
+  font-size: 0.975rem;
+  line-height: 140%;
+  letter-spacing: -0.02344rem;
+  width: 70%;
+}
+
+.newsContainer .newsContent .newsSlideWrap .newsSlideItem .newsDate {
+  color: #adb5bd;
+  text-align: center;
+  font-family: Pretendard-Regular, sans-serif;
+  font-size: 0.8125rem;
+  line-height: 140%;
+  letter-spacing: -0.02032rem;
+}

@@ -1,0 +1,192 @@
+.btchHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 60rem;
+    height: 4.375rem;
+    padding: 0 1.875rem;
+}
+
+.btchHeader .btchHeaderL {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 0.6875rem;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    color: #FFF;
+}
+
+.btchHeader .btchHeaderR {
+    font-family: PretendardExtraBold, sans-serif;
+    font-size: 0.5rem;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: #8B95A1;
+}
+
+.rtnContainer {
+    position: relative;
+    width: 60rem;
+    height: 100vh;
+    background: linear-gradient(105deg, rgb(18 22 29 / 50%) 10.68%, rgb(6 32 70 / 50%) 50.29%, rgb(18 22 29 / 50%) 89.9%),
+    linear-gradient(90deg, #12161D 0%, rgb(6 32 70 / 50%) 50%, #12161D 100%),
+    linear-gradient(0deg, #4E1A37 0%, #1D1D35 100%);
+}
+
+.rtnContainer .rtnContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4.575rem;
+}
+
+.rtnContainer .rtnContent .rtnSchedule {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2.025rem;
+}
+
+.rtnContainer .rtnContent .rtnSchedule .rtnScheduleTitle {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 0.9375rem;
+    font-style: normal;
+    line-height: 100%;
+    text-align: center;
+    letter-spacing: -0.028125rem;
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnSchedule .rtnClock {
+    width: 12.375rem;
+    height: 12.375rem;
+    background: url("/resources/ict/typeE/common/img/weather/clock_bg.png") center / contain no-repeat;
+    aspect-ratio: 1/1;
+}
+
+#gc {
+    width: 12.375rem;
+    height: 12.375rem;
+}
+
+.rtnContainer .rtnContent .rtnSchedule .rtnDateTxt {
+    font-family: PretendardMedium, sans-serif;
+    font-size: 0.9375rem;
+    font-style: normal;
+    line-height: 100%;
+    text-align: center;
+    letter-spacing: -0.01875rem;
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnSchedule .rtnTime {
+    font-family: Roboto, sans-serif;
+    font-size: 3.125rem;
+    font-style: normal;
+    line-height: 100%;
+    text-align: center;
+    letter-spacing: 0.21875rem;
+    text-transform: uppercase;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnToday {
+    display: inline-flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.875rem;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayTitle {
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 2.34375rem;
+    font-style: normal;
+    line-height: 150%;
+    letter-spacing: -0.058595rem;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.9375rem;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem {
+    display: flex;
+    align-items: center;
+    gap: 2.1875rem;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnLabel {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 11.25rem;
+    height: 8.125rem;
+    border-radius: 0.9375rem;
+    background: rgb(255 255 255 / 20%);
+    gap: 0.625rem;
+    backdrop-filter: blur(50px);
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnLabel .labelKo {
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 1.25rem;
+    font-style: normal;
+    line-height: 1.25rem;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnLabel .labelEn {
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 0.9375rem;
+    font-style: normal;
+    line-height: normal;
+    color: #8B95A1;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnDate {
+    display: flex;
+    gap: 1.4375rem;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnDate .dateMon,
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnDate .dateD {
+    display: flex;
+    align-items: baseline;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnDate .dateNum {
+    font-family: Roboto, sans-serif;
+    font-size: 7.1875rem;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnItem .rtnDate .dateTxt {
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 1.5625rem;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    color: #FFF;
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnReturn .rtnLabelReturn {
+    background: rgb(254 201 98 / 20%);
+}
+
+.rtnContainer .rtnContent .rtnToday .rtnTodayContent .rtnReturn .rtnDateReturn .dateNum {
+    color: #FEC962;
+}

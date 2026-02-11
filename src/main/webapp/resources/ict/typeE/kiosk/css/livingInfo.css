@@ -1,0 +1,128 @@
+.newsContainer {
+    background: url("/resources/ict/typeE/info/img/livingInfo/livingInfo_bg.png") top left / cover no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+
+.newsContainer .newsHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.74997rem;
+    margin-top: 7rem;
+}
+
+.newsContainer .newsHeader .newsTime {
+    color: #FFF;
+    font-family: "Century Gothic";
+    font-size: 7.49963rem;
+    line-height: normal;
+}
+
+.newsContainer .newsHeader .newsDate {
+    color: #FFF;
+    font-family: Pretendard-Regular, sans-serif;
+    font-size: 2.24988rem;
+    line-height: normal;
+}
+
+.newsContainer .newsBody {
+    background: rgba(17, 17, 17, 0.60);
+    width: 100%;
+    padding: 4.37rem 6.25rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.newsContainer .newsBody .newsSectionGroup {
+
+}
+
+.newsContainer .newsBody .newsSectionGroup .newsTodayTitle {
+    color: #ADB5BD;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1.87491rem;
+    line-height: normal;
+
+}
+
+.newsContainer .newsBody .newsSectionGroup .newsListWrapper {
+    margin-top: 3.44rem;
+}
+
+.newsContainer .newsBody .newsSectionGroup .newsListWrapper .newsList {
+}
+
+.newsContainer .newsBody .newsSectionGroup .newsListWrapper .newsList .newsItem {
+    display: flex !important;
+    justify-content: space-between;
+    margin-bottom: 1.87rem
+}
+
+.newsContainer .newsBody .newsSectionGroup .newsListWrapper .newsList .newsItem .newsItemTitle {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    color: #FFF;
+    width: 40rem;
+    text-overflow: ellipsis;
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 1.87491rem;
+    line-height: normal;
+}
+
+.newsContainer .newsBody .newsSectionGroup .newsListWrapper .newsList .newsItem .newsItemTime {
+    color: #ADB5BD;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1.87491rem;
+    line-height: normal;
+}
+.newsContainer .newsBody .newsSectionGroup .weatherSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.newsContainer .newsBody .newsSectionGroup .weatherSection .weatherText{
+    display: flex;
+    align-items: center;
+    gap: 1.87rem;
+}
+.newsContainer .newsBody .newsSectionGroup .weatherSectionTitle {
+    color: #ADB5BD;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1.87491rem;
+    line-height: normal;
+}
+
+.newsContainer .newsBody .newsSectionGroup .weatherStatus {
+    display: inline-flex;
+    padding: 0.62497rem 1.87491rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.87491rem;
+    border: 4px solid #FFF;
+    color: #FFF;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1.62491rem;
+    line-height: normal;
+}
+
+.newsContainer .newsBody .newsSectionGroup .weatherInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.63rem;
+}
+
+.newsContainer .newsBody .newsSectionGroup .weatherInfo .weatherIcon {
+    width: 8.06209rem;
+}
+
+.newsContainer .newsBody .newsSectionGroup .weatherInfo .weatherTemp {
+    color: #FFF;
+    font-family: Roboto;
+    font-size: 4.49978rem;
+    line-height: normal;
+    letter-spacing: -0.1125rem;
+}

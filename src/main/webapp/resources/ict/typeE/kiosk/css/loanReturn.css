@@ -1,0 +1,85 @@
+.libReturnContainer {
+    width: 100%;
+    height: 100vh;
+    background: url(/resources/ict/typeE/info/img/loanreturn/lib_return_bg.png)  top center / cover no-repeat;
+}
+
+.libReturnContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4.5rem;
+}
+.libReturnContent .libReturnLabel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.libReturnContent .libReturnLabel .libReturnLabelKo{
+    color: #191F28;
+    font-family: Pretendard-Bold, sans-serif;
+    font-size: 3.75rem;
+    line-height: 100%; /* 7.5rem */
+    etter-spacing: -0.09375rem;
+    text-transform: uppercase;
+}
+.libReturnContent .libReturnLabel .libReturnLabelEn{
+    color: #8B95A1;
+    font-family: Pretendard-SemiBold ,sans-serif;
+    font-size: 1.25rem;
+    line-height: normal;
+    letter-spacing: 0.125rem;
+    text-transform: uppercase;
+}
+.libReturnInner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 9.34rem;
+}
+.libReturnNumberArea{
+    display: flex;
+    align-items: center;
+    gap: 4.5rem;
+}
+.libReturnNumberWrapper {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.libReturnNumber {
+    font-family:FjallaOne, sans-serif;
+    font-size: 15rem;
+    line-height: 130%;
+    position: relative;
+    width: 12rem;
+    height: 18.75rem;
+    padding-left: 0.625rem;
+    text-align: center;
+    letter-spacing: 0.3125rem;
+    text-transform: lowercase;
+    color: #FFF;
+    z-index: 2;
+}
+.libReturnNumber:before {
+    position: absolute;
+    top: 9.375rem;
+    left: 0.5rem;
+    width: 11rem;
+    height: 0.2rem;
+    content: "";
+    background-color: #000;
+}
+.libReturnNumber:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 12rem;
+    height: 18.75rem;
+    display: inline-block;
+    z-index: -1;
+    background: url("/resources/ict/typeE/info/img/loanreturn/days.svg") top left / cover no-repeat;
+}
+

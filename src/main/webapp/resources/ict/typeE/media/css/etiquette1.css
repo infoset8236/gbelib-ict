@@ -1,0 +1,109 @@
+.panelHeader{
+    position: absolute;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    height: 4.375rem;
+    padding: 0 1.875rem;
+}
+
+.panelHeader .panelTitle{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.1875rem;
+}
+
+.panelHeader .panelTitle .panelTitleEn{
+    font-family: PretendardExtraBold, sans-serif;
+    font-size: 0.5rem;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: #8B95A1;
+}
+
+.panelHeader .panelTitle .panelTitleKo{
+    font-family: PretendardMedium, sans-serif;
+    font-size: 0.6875rem;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    color: #FFF;
+}
+
+.panelPagination > span{
+    font-family: PretendardExtraBold, sans-serif;
+    font-size: 0.75rem;
+    line-height: normal;
+    text-align: center;
+    letter-spacing: 0.15rem;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.panelPagination .panelTotal{
+    color: #8B95A1;
+}
+
+.etPanel{
+    position: relative;
+    width: 60rem;
+    height: 100vh;
+    background: url("/resources/ict/dglib/media/img/etiquette/etiquette-bgx2.svg") top left /cover no-repeat;
+}
+
+.etPanel .etList{
+    display: flex;
+}
+
+.etPanel .etList .etItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60rem;
+    height: 100vh;
+    gap: 4.61rem;
+}
+
+.etPanel .etList .etItem .etImg{
+    height: 20.3125rem;
+    aspect-ratio: 37/65;
+}
+
+.etPanel .etList .etItem .etImg > img{
+    width: 100%;
+}
+
+.etPanel .etList .etItem .etContent{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 27.1875rem;
+    height: 17.03125rem;
+    white-space: nowrap;
+    gap: 1.25rem;
+}
+
+.etPanel .etList .etItem .etContent .etTitle{
+    font-family: PretendardSemiBold, sans-serif;
+    font-size: 3.75rem;
+    line-height: 140%;
+    letter-spacing: -0.09375rem;
+    color: #FFF;
+}
+
+.etPanel .etList .etItem .etContent .etDesc{
+    font-family: PretendardMedium, sans-serif;
+    font-size: 1.875rem;
+    font-style: normal;
+    line-height: 140%;
+    letter-spacing: -0.046875rem;
+    color: rgb(255 255 255 / 80%);
+}

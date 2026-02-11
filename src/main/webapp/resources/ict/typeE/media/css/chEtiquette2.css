@@ -1,0 +1,133 @@
+:root {
+  font-size: 32px;
+}
+body {
+  overflow: hidden;
+}
+.panelHeader {
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 120rem;
+  height: 4.375rem;
+  padding: 0 1.875rem;
+}
+
+.panelHeader .panelTitle {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.1875rem;
+}
+
+.panelHeader .panelTitle .panelTitleEn {
+  font-family: PretendardExtraBold, sans-serif;
+  font-size: 0.5rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #8b95a1;
+}
+
+.panelHeader .panelTitle .panelTitleKo {
+  font-family: PretendardMedium, sans-serif;
+  font-size: 0.6875rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  color: #fff;
+}
+
+.panelPagination > span {
+  font-family: PretendardExtraBold, sans-serif;
+  font-size: 0.75rem;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: #191f28;
+}
+
+.panelPagination .panelTotal {
+  color: #8b95a1;
+}
+
+.chEtiqPanel {
+  width: 120rem;
+  height: 100vh;
+  background: url("/resources/ict/typeE/media/img/etiquette/chEtiq-bgx2.png") center / cover no-repeat;
+  overflow: hidden;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqItem {
+  position: relative;
+  width: 60rem;
+  height: 100vh;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqItem .chEtiqImg {
+  position: absolute;
+  top: 9.375rem;
+  left: 50%;
+  width: 54.6875rem;
+  height: 21.875rem;
+  transform: translateX(-50%);
+}
+
+.chEtiqPanel .chEtiqList .chEtiqItem .chEtiqImg > img {
+  position: absolute;
+  bottom: 0;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqItem .chEtiqImg > img:first-child {
+  left: 0;
+  width: 500px;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqItem .chEtiqImg > img:last-child {
+  right: 0;
+  width: 350px;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 23.4375rem;
+  transform: translate(-50%, -50%);
+  gap: 1.5625rem;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqContent .chEtiqTitle {
+  font-family: PretendardBold, sans-serif;
+  font-size: 3.125rem;
+  font-style: normal;
+  line-height: 140%;
+  text-align: center;
+  white-space: nowrap;
+  color: #191f28;
+}
+
+.chEtiqPanel .chEtiqList .chEtiqContent .chEtiqDesc {
+  font-family: PretendardMedium, sans-serif;
+  font-size: 1.5625rem;
+  font-style: normal;
+  line-height: 140%;
+  text-align: center;
+  letter-spacing: -0.039065rem;
+  color: #4e5968;
+}
+
+.slick-initialized .slick-slide {
+  display: flex;
+}

@@ -1,0 +1,257 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background: url('/resources/ict/common/img/login.svg') center center no-repeat;
+  background-size: cover;
+}
+
+.popup_overlay {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.popup_wrapper {
+  width: 46.875rem;
+  text-align: center;
+  border-radius: 1.875rem;
+  background-color: white;
+}
+
+.popup_title {
+  font-family: "Pretendard", sans-serif;
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 140%;
+  margin-top: 1.25rem;
+  padding: 1.875rem 3.75rem;
+  text-align: left;
+  letter-spacing: 0.055rem;
+  color: #242424;
+}
+
+.popup_content {
+  font-family: "Pretendard", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 140%;
+  padding: 0 3.75rem;
+  text-align: left;
+  letter-spacing: -0.0375rem;
+  color: #6B7684;
+}
+
+.button_wrapper {
+  display: flex;
+  margin: 2.8125rem 3.75rem;
+  gap: 0.9375rem;
+}
+
+.close_btn {
+  font-family: "Pretendard", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 2.852rem;
+  margin: 2.8125rem 3.75rem;
+  padding: 1.25rem 1.875rem;
+  text-align: center;
+  color: #FFF;
+  border-radius: 0.9375rem;
+  background: #242424;
+}
+
+.action_button {
+  font-family: "Pretendard", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 2.852rem;
+  width: 50%;
+  padding: 1.25rem 1.875rem;
+  text-align: center;
+  border-radius: 0.9375rem;
+}
+
+.black {
+  color: #FFF;
+  background: #242424;
+}
+
+.white {
+  color: #6B7684;
+  border: 0.125rem solid #C8CDD2;
+}
+
+.title_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 13.125rem;
+  text-align: center;
+}
+
+.title_wrapper img {
+  width: 6.25rem;
+  height: 6.25rem;
+}
+
+.title {
+  font-family: "Pretendard", sans-serif;
+  font-size: 4.375rem;
+  font-weight: 600;
+  line-height: 140%;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.0875rem;
+  color: #FFFFFF;
+}
+
+.sub_title {
+  font-family: "Pretendard", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 140%;
+  letter-spacing: -0.05rem;
+  color: #FFFFFF;
+}
+
+.input_wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-top: 5rem;
+  padding-right: 7.5rem;
+  padding-left: 7.5rem;
+}
+
+.input {
+  font-size: 2.125rem;
+  font-weight: 500;
+  width: 52.5rem;
+  height: 8.4375rem;
+  padding: 2.28125rem 2.28125rem 2.28125rem 7.1875rem;
+  letter-spacing: -0.0425rem;
+  color: #191F28;
+  border: 0.09375rem solid #ADB5BD;
+  border-radius: 1.875rem;
+  background: #FFF;
+}
+
+.input::placeholder {
+  font-size: 2.125rem;
+  font-weight: 500;
+  letter-spacing: -0.0425rem;
+  color: #8B95A1;
+}
+
+.label {
+  position: relative;
+  width: 100%;
+}
+
+.label img {
+  position: absolute;
+  top: 2.8125rem;
+  left: 2.8125rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+.label:nth-child(2) img {
+  width: 2.125rem;
+  height: 2.625rem;
+  top: 2.625rem;
+  left: 3.125rem;
+}
+
+.mt {
+  margin-top: 1rem;
+}
+
+.login {
+  font-family: "Pretendard", sans-serif;
+  font-size: 2.125rem;
+  font-weight: 700;
+  width: 100%;
+  margin-top: 3.75rem;
+  margin-bottom: 10.625rem;
+  padding: 2.625rem 0;
+  text-align: center;
+  letter-spacing: -0.0425rem;
+  color: #FFFFFF;
+  border-radius: 1.875rem;
+  background: #191F28;
+}
+
+.caption {
+  font-family: "Pretendard", sans-serif;
+  font-size: 1.875rem;
+  font-weight: 500;
+  width: 100%;
+  margin-bottom: 2.25rem;
+  text-align: center;
+  letter-spacing: -0.0375rem;
+  color: #FFFFFF;
+}
+
+.rfid_login {
+  font-family: "Pretendard", sans-serif;
+  font-size: 2.125rem;
+  font-weight: 700;
+  width: 100%;
+  padding: 2.625rem 0;
+  text-align: center;
+  letter-spacing: -0.0425rem;
+  color: #FFFFFF;
+  border-radius: 1.875rem;
+  background: #6B7684;
+}
+
+.navigation {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 10rem;
+  background: #fff;
+  box-shadow: 0 -0.0625rem 1.25rem rgba(0, 0, 0, 0.1);
+}
+
+.navigation > li {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+}
+
+.navigation > li > img {
+  width: 3rem;
+  height: 3rem;
+}
+
+.navigation > li > .menu {
+  font-family: 'Pretendard-Regular', sans-serif;
+  font-size: 1.375rem;
+  font-weight: 500;
+  color: #adb5bd;
+}
+
+.navigation > li > span {
+  font-family: 'Pretendard-Regular', sans-serif;
+  font-size: 0.625rem;
+  font-weight: 400;
+  color: #adb5bd;
+}

@@ -1,0 +1,118 @@
+.libEventContainer {
+    width: 100%;
+    height: 100vh;
+    background: url("/resources/ict/typeE/info/img/event/lib_event_bg.png") top left / cover no-repeat;
+}
+
+.libEventContainer .libEventInner {
+    margin-top: 10.75rem;
+    padding: 0 6.88rem;
+}
+
+.libEventContainer .libEventInner .libEventLabel {
+    color: #B87045;
+    font-family: Pretendard-Bold, sans-serif;
+    font-size: 1.625rem;
+    line-height: 100%; /* 1.625rem */
+    letter-spacing: 0.325rem;
+    text-transform: uppercase;
+}
+.libEventContainer .libEventInner .libEventBox{
+    position: relative;
+}
+.libEventContainer .libEventInner .libEventBox .libEventItem{
+    margin-right: 10rem;
+}
+.libEventContainer .libEventInner .libEventTitle {
+    margin-top: 1.87rem;
+    overflow: hidden;
+    color: #191F28;
+    text-overflow: ellipsis;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 6.25rem;
+    line-height: 130%; /* 8.125rem */
+    letter-spacing: -0.15625rem;
+    text-transform: uppercase;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+.libEventContainer .libEventInner .libEventInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2.5rem;
+    margin-top: 3.75rem;
+}
+
+.libEventContainer .libEventInner .libEventInfo .libEventInfoItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.625rem;
+}
+
+.libEventContainer .libEventInner .libEventInfo .libEventInfoItem .libEventInfoTit {
+    color: #B87045;
+    text-align: center;
+    font-family: Pretendard-SemiBold, sans-serif;
+    font-size: 1.875rem;
+    line-height: normal;
+    letter-spacing: 0.1875rem;
+}
+
+.libEventContainer .libEventInner .libEventInfo .libEventInfoItem .libEventInfoDesc {
+    color: #191F28;
+    text-align: center;
+    font-family: Pretendard-Medium, sans-serif;
+    font-size: 2.5rem;
+    line-height: normal;
+}
+
+.libEventContainer .slick-dots{
+    display: flex;
+    gap: 0.88rem;
+    bottom: -5rem;
+    left: 0;
+    text-align: left;
+}
+.libEventContainer .slick-dots li{
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: #fff;
+    border-radius: 100%;
+}
+.libEventContainer .slick-dots li button{
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 100%;
+}
+.libEventContainer .slick-dots li.slick-active button{
+    background: #ADB5BD;
+}
+
+.lib_event_nodata_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100vh - 40rem);
+}
+
+.lib_event_nodata_wrapper img {
+    width: 25rem;
+    height: 25rem;
+}
+
+.lib_event_nodata_wrapper div {
+    font-family: 'Pretendard-Medium', sans-serif;
+    font-size: 2.5rem;
+    line-height: 130%;
+    text-align: center;
+    letter-spacing: -2px;
+    color: #191F28;
+}

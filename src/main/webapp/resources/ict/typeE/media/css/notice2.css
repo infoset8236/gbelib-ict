@@ -1,0 +1,129 @@
+.panelHeader{
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 4.375rem;
+  padding: 0 1.875rem;
+}
+
+.panelHeader .panelTitle{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.1875rem;
+}
+
+.panelHeader .panelTitle .panelTitleEn{
+  font-family: PretendardExtraBold, sans-serif;
+  font-size: 0.5rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: #8B95A1;
+}
+
+.panelHeader .panelTitle .panelTitleKo{
+  font-family: PretendardMedium, sans-serif;
+  font-size: 0.6875rem;
+  font-style: normal;
+  line-height: normal;
+  text-align: center;
+  color: #FFF;
+}
+
+.panelPagination > span{
+  font-family: PretendardExtraBold, sans-serif;
+  font-size: 0.75rem;
+  line-height: normal;
+  text-align: center;
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.panelPagination .panelTotal{
+  color: #8B95A1;
+}
+
+.infoPanelContainer .infoList .infoGroupWrapper{
+  display: flex;
+  margin-top: 30rem;
+}
+
+.infoPanelContainer .infoList .infoGroup{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5.734375rem 4.765625rem;
+  gap: 4.375rem;
+}
+
+.infoPanelContainer{
+  position: relative;
+  width: 120rem;
+  height: 100vh;
+    background:
+            linear-gradient(105deg, rgb(18 22 29 / 50%) 10.68%, rgb(6 32 70 / 50%) 50.29%, rgb(18 22 29 / 50%) 89.9%),
+            linear-gradient(90deg, #12161D 0%, rgb(6 32 70 / 50%) 50%, #12161D 100%),
+            linear-gradient(0deg, #4E1A37 0%, #1D1D35 100%);
+    background-repeat: repeat-x;
+    background-size: 1920px 100%;
+}
+
+.infoPanelContainer .infoList .infoItem{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  width: 14rem;
+  gap: 1.25rem;
+}
+
+.infoPanelContainer .infoList .infoItem > img{
+  width: 13.90625rem;
+  height: 19.6875rem;
+  border-radius: 0.75rem;
+  box-shadow: 20px 40px 80px 0 rgb(0 0 0 / 25%);
+  aspect-ratio: 89/126;
+}
+
+.infoPanelContainer .infoList .infoItem .infoItemText{
+  font-family: PretendardMedium, sans-serif;
+  font-size: 1.125rem;
+  font-style: normal;
+  line-height: normal;
+  display: -webkit-box;
+  overflow: hidden;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: -0.028125rem;
+  text-overflow: ellipsis;
+  color: #FFF;
+  gap: 2.5rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.slick-track{
+  margin: 0 !important;
+}
+.noData {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PretendardMedium, sans-serif;
+  font-size: 2.375rem;
+  font-style: normal;
+  line-height: normal;
+  color: #FFFFFF;
+}
