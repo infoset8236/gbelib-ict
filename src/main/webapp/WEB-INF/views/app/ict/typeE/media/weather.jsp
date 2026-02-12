@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <img class="todayIcon" id="today_icon" src="/resources/ict/typeE/media/img/weather/life/01d.pngg" alt="">
+                <img class="todayIcon" id="today_icon" src="/resources/ict/typeE/media/img/weather/life/01d.png" alt="">
             </div>
             <div class="lifeIndex">
             <div>미세먼지<span id="dust_condi_txt"></span></div>

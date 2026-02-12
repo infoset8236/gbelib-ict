@@ -462,8 +462,9 @@ public class SmartController extends BaseController {
 
         List<Map<String, Object>> getKeywordBookList = null;
 
-        if (context_path.equals("yy")) {
-            getKeywordBookList = LibSearchAPI.getBookKeywordSearchList2(librarySearch);
+        if (context_path.equals("yy") || context_path.equals("yc")) {
+            String apiUrl = apiUrl = context_path.equals("yy") ? CommonAPI.YY_API_URL : CommonAPI.YC_API_URL;
+            getKeywordBookList = LibSearchAPI.getBookKeywordSearchList2(librarySearch,apiUrl);
         } else {
             getKeywordBookList = LibSearchAPI.getBookKeywordSearchList(librarySearch);
         }
@@ -476,9 +477,17 @@ public class SmartController extends BaseController {
     }
 
     @RequestMapping(value = {"/aiRecomendation.*"})
-    public static List<Map<String, Object>> aiRecomendation(LibrarySearch config) {
+    public static List<Map<String, Object>> aiRecomendation(LibrarySearch config, HttpServletRequest request) {
+        Homepage homepage = (Homepage) request.getAttribute("homepage");
         Map<String, Object> params = new HashMap<String, Object>();
         Map<String, Object> result = null;
+
+        String apiUrl = null;
+        if (homepage.getContext_path().equals("yc")) {
+            apiUrl = CommonAPI.YC_API_URL;
+        } else if (homepage.getContext_path().equals("yy")) {
+            apiUrl = CommonAPI.YY_API_URL;
+        }
 
         if (StringUtils.isNotEmpty(config.getSearch_text())) {
             params.put("input", config.getSearch_text());
@@ -486,7 +495,7 @@ public class SmartController extends BaseController {
         params.put("rec_num", 20);
         params.put("stream", "false");
 
-        result = CommonAPI.sendYyAiAPI("recommendation/emb-search", params);
+        result = CommonAPI.sendAiAPI("recommendation/emb-search", params, apiUrl);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         if (result != null) {
             try {
@@ -510,17 +519,22 @@ public class SmartController extends BaseController {
     }
 
     @RequestMapping(value = {"/aiLibraryagent.*"})
-    public Map<String, Object> aiLibraryAgent(LibrarySearch config) {
+    public Map<String, Object> aiLibraryAgent(@PathVariable String context_path,LibrarySearch config) {
         Map<String, Object> params = new HashMap<String, Object>();
         Map<String, Object> result = new HashMap<String, Object>();
 
         if (StringUtils.isNotEmpty(config.getSearch_text())) {
             params.put("input", config.getSearch_text());
         }
-
         params.put("stream", "false");
+        String apiUrl = null;
+        if (context_path.equals("yc")) {
+            apiUrl = CommonAPI.YC_API_URL;
+        } else if (context_path.equals("yy")) {
+            apiUrl = CommonAPI.YY_API_URL;
+        }
 
-        result = CommonAPI.sendYyAiAPI("chat/library_info", params);
+        result = CommonAPI.sendAiAPI("chat/library_info", params,apiUrl);
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         if (result != null) {
@@ -539,6 +553,7 @@ public class SmartController extends BaseController {
 
         return result;
     }
+
     @RequestMapping(value = {"/smartBookRecom.*"})
     public String smartBookRecom(@PathVariable String context_path, LibrarySearch librarySearch, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member member = getSessionMemberInfo(request);
@@ -751,7 +766,13 @@ public class SmartController extends BaseController {
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("input", librarySearch.getSearch_text());
             params.put("isbn", librarySearch.getIsbn());
-            Map<String, Object> aiResasonResult = CommonAPI.sendYyAiAPI("recommendation/reason", params);
+            String apiUrl = null;
+            if (context_path.equals("yc")) {
+                apiUrl = CommonAPI.YC_API_URL;
+            } else if (context_path.equals("yy")) {
+                apiUrl = CommonAPI.YY_API_URL;
+            }
+            Map<String, Object> aiResasonResult = CommonAPI.sendAiAPI("recommendation/reason", params, apiUrl);
 
             if (aiResasonResult != null) {
                 String reason = aiResasonResult.get("recommend_reason").toString();
@@ -766,6 +787,7 @@ public class SmartController extends BaseController {
 
         return basePath(request) + "aiDetail";
     }
+
     @RequestMapping(value = {"/getDetailInfo.*"},method = RequestMethod.GET)
     public @ResponseBody Map<String,Object> getDetailInfo (LibrarySearch librarySearch) {
         Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
@@ -793,7 +815,13 @@ public class SmartController extends BaseController {
     public @ResponseBody Map<String, Object>  aiResultList (LibrarySearch librarySearch,@PathVariable String context_path, @RequestParam(value = "question", required = false) String question, @RequestParam("sourceType") String sourceType,HttpServletRequest request) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
         librarySearch.setSearch_text(question);
-        List<Map<String, Object>> result = LibSearchAPI.aiRecomendation(librarySearch);
+        String apiUrl = null;
+        if (homepage.getContext_path().equals("yc")) {
+            apiUrl = CommonAPI.YC_API_URL;
+        } else if (homepage.getContext_path().equals("yy")) {
+            apiUrl = CommonAPI.YY_API_URL;
+        }
+        List<Map<String, Object>> result = LibSearchAPI.aiRecomendation(librarySearch, apiUrl);
 
         List<String> isbnList = new ArrayList<String>();
         Map<String,Map<String, Object>> resultMap = new HashMap<String, Map<String, Object>>();
@@ -838,7 +866,6 @@ public class SmartController extends BaseController {
         map.put("bookList", resultMap.values());
         return map;
     }
-
 
     @RequestMapping(value = {"/bigData.*"})
     public String bigData(@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {

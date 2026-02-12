@@ -502,7 +502,10 @@
 
 .popupDetailsMeta .metaBasic > div:nth-child(1),
 .popupDetailsMeta .metaBasic > div:nth-child(2),
-.popupDetailsMeta .metaBasic > div:nth-child(3) {
+.popupDetailsMeta .metaBasic > div:nth-child(3),
+.popupDetailsMeta .metaBasic > div:nth-child(4),
+.popupDetailsMeta .metaBasic > div:nth-child(5),
+.popupDetailsMeta .metaBasic > div:nth-child(6) {
   font-family: PretendardMedium, sans-serif;
   font-size: 1.625rem;
   line-height: 140%;
@@ -513,7 +516,10 @@
 
 .popupDetailsMeta .metaBasic > div:nth-child(1) span,
 .popupDetailsMeta .metaBasic > div:nth-child(2) span,
-.popupDetailsMeta .metaBasic > div:nth-child(3) span {
+.popupDetailsMeta .metaBasic > div:nth-child(3) span,
+.popupDetailsMeta .metaBasic > div:nth-child(4) span,
+.popupDetailsMeta .metaBasic > div:nth-child(5) span,
+.popupDetailsMeta .metaBasic > div:nth-child(6) span{
   font-family: PretendardMedium, sans-serif;
   font-size: 1.625rem;
   line-height: 140%;
@@ -526,18 +532,18 @@
   -webkit-line-clamp: 1;
 }
 
-.popupDetailsMeta .metaBasic > div:nth-child(4) {
-  font-family: PretendardMedium, sans-serif;
-  font-size: 1.875rem;
-  font-style: normal;
-  line-height: 2.5rem;
-  white-space: nowrap;
-  text-transform: uppercase;
-  color: #242424;
-}
+/*.popupDetailsMeta .metaBasic > div:nth-child(4) {*/
+/*  font-family: PretendardMedium, sans-serif;*/
+/*  font-size: 1.875rem;*/
+/*  font-style: normal;*/
+/*  line-height: 2.5rem;*/
+/*  white-space: nowrap;*/
+/*  text-transform: uppercase;*/
+/*  color: #242424;*/
+/*}*/
 
 .popupDetailsMeta .metaBasic > div:nth-child(4) span {
-  font-family: PretendardBold, sans-serif;
+  /*font-family: PretendardBold, sans-serif;*/
 }
 
 .popupDetailsMeta .metaInfoWrap {

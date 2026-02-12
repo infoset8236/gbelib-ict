@@ -5,6 +5,7 @@ import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
+import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.common.api.LoginAPI;
 import kr.go.gbelib.app.intro.bookDescription.BookDescriptionService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -348,5 +350,57 @@ public class KioskController extends BaseController {
     private void setBoardListToModelIct(String homepage_id, Model model) {
 
     }
+
+
+    @RequestMapping(value = {"/{type}/ai.*"})
+    public String ai(@PathVariable String context_path,@PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return basePath(request) + type + "/ai";
+    }
+
+    @RequestMapping(value = {"/{type}/aiResult.*"})
+    public String aiResult(LibrarySearch librarySearch, @PathVariable String type, @PathVariable String context_path, Model model, @RequestParam(value = "question", required = false) String question, HttpServletRequest request) {
+        if (question == null) {
+            question = "";
+        }
+        librarySearch.setSearch_text(question);
+
+        model.addAttribute("searchText", question);
+        return basePath(request) + type + "/aiResult";
+    }
+
+    @RequestMapping(value = {"/{type}/aiDetail.*"})
+    public String aiDetail (@PathVariable String context_path, @PathVariable String type, LibrarySearch librarySearch, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
+
+        try {
+            result = bookImageService.resultImageMap(result ,librarySearch, "dsItemDetail", "IMAGE_URL");
+            bookDescriptionService.resultDescriptionMap(result, librarySearch, "dsItemDetail", "contentsDetail");
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("input", librarySearch.getSearch_text());
+            params.put("isbn", librarySearch.getIsbn());
+
+            String apiUrl = null;
+            if (context_path.equals("yc")) {
+                apiUrl = CommonAPI.YC_API_URL;
+            } else if (context_path.equals("yy")) {
+                apiUrl = CommonAPI.YY_API_URL;
+            }
+            Map<String, Object> aiResasonResult = CommonAPI.sendAiAPI("recommendation/reason", params, apiUrl);
+
+            if (aiResasonResult != null) {
+                String reason = aiResasonResult.get("recommend_reason").toString();
+                result.put("reason", reason);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("detail", result);
+        model.addAttribute("librarySearch", librarySearch);
+
+        return basePath(request) + type + "/aiDetail";
+    }
+
 
 }

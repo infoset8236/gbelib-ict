@@ -35,6 +35,8 @@ public class CommonAPI {
 	public final static String ILUS_API_URL = ResourceBundle.getBundle("api").getString("ilus.api.url");
 	public final static String KEYWORD_API_URL = ResourceBundle.getBundle("api").getString("keyword.api.url");
 	public final static String YY_API_URL = ResourceBundle.getBundle("api").getString("yy.api.url");
+	public final static String YC_API_URL = ResourceBundle.getBundle("api").getString("yc.api.url");
+
 
 	public final static String NAVER_LIST_API_URL = "https://openapi.naver.com/v1/search/book.xml";
 	public final static String NAVER_DETAIL_API_URL = "https://openapi.naver.com/v1/search/book_adv.xml";
@@ -138,13 +140,13 @@ public class CommonAPI {
 		return doc;
 	}
 
-	public static Map<String, Object> sendYyAiAPI(String requestName, Map<String, Object> param) {
+	public static Map<String, Object> sendAiAPI(String requestName, Map<String, Object> param, String url) {
 		HttpURLConnection connection = null;
 		Map<String, Object> resultMap = null;
 		OutputStream os = null;
 
 		try {
-			String apiUrl = YY_API_URL + requestName;
+			String apiUrl = url + requestName;
 			connection = initConn(apiUrl);
 
 			connection.setRequestMethod("POST");
@@ -154,7 +156,7 @@ public class CommonAPI {
 			ObjectMapper om = new ObjectMapper();
 			String jsonBody = om.writeValueAsString(param);
 
-			log.info("@@@@@@@@@@@@@@@@@@ YY_API_URL : " + apiUrl);
+			log.info("@@@@@@@@@@@@@@@@@@ AI_API_URL : " + apiUrl);
 			log.info("@@@@@@@@@@@@@@@@@@ REQUEST BODY    : " + jsonBody);
 
 			os = connection.getOutputStream();
@@ -775,14 +777,14 @@ public class CommonAPI {
 	/**
 	 * 경북영양 키워드 SEARCH API (Java 6)
 	 */
-	public static Map<String, Object> sendYyKeyword(String requestName, Map<String, Object> param) {
+	public static Map<String, Object> sendAiKeyword(String requestName, Map<String, Object> param, String url) {
 		HttpURLConnection connection = null;
 		Map<String, Object> resultMap = null;
 		BufferedWriter writer = null;
 		OutputStream os = null;
 
 		try {
-			String apiUrl = YY_API_URL + requestName;
+			String apiUrl = url + requestName;
 			connection = initConn(apiUrl);
 
 			// POST + JSON 설정

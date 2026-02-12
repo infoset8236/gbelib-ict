@@ -29,13 +29,13 @@ import java.util.Map;
 @RequestMapping(value = {"/{context_path}/ict/star"})
 public class StarController extends BaseController {
     @Autowired
-    private LibrarySearchService service;
-
-    @Autowired
     private LoginService loginService;
 
     @Autowired
     private BookImageService bookImageService;
+
+    @Autowired
+    private LibrarySearchService service;
 
     @Autowired
     private BookDescriptionService bookDescriptionService;
@@ -137,6 +137,7 @@ public class StarController extends BaseController {
         return basePath(request) + "search";
     }
 
+    // 키워드가 별자리인 도서 상세페이지
     @RequestMapping(value = {"/bookDetail.*"})
     public String detail (LibrarySearch librarySearch, @PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");

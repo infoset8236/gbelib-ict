@@ -57,6 +57,7 @@
     })
 </script>
 <body>
+
 <div class="dim">
     <div class="container" tabindex="0">
         <div class="scrollDownArea">
@@ -151,7 +152,7 @@
                             <div class="mainBookDesc" tabindex="0">
                                 <div>책소개</div>
                                 <div>
-                                    등록된 책소개가 없습니다.
+                                    ${empty i.contentsDetail ? '등록된 책소개가 없습니다.' : i.contentsDetail}
                                 </div>
                             </div>
                         </div>
@@ -255,5 +256,4 @@
     </div>
 </div>
 </body>
-
 </html>

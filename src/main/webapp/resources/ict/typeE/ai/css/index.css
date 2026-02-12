@@ -8,10 +8,11 @@
     font-style: normal;
     line-height: normal;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     height: 10.625rem;
     padding: 0 3.75rem;
     color: #FFF;
+    justify-content: center;
 }
 
 .intro {

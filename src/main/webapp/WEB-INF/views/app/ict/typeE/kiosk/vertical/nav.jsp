@@ -81,16 +81,16 @@
 				<span class="eng-txt">FACILITY</span>
 			</a>
 		</li>
-<%--        <li class="aiMwnu">--%>
-<%--            <a class="nav_faci" href="/${homepage.context_path}/ict/kiosk/vertical/ai.do">--%>
-<%--                <img alt="Ai" src="/resources/ict/kioskVertical/img/type_b/info/common/ai.svg" />--%>
-<%--            </a>--%>
-<%--        </li>--%>
-		<li class="aiMwnu">
-            <a class="nav_faci" onclick="customPopupHtml(`죄송합니다. 현재 서비스 준비 중입니다.<br>더 나은 서비스로 빠른 시일 내에 찾아뵙겠습니다.`);" >
+        <li class="aiMwnu">
+            <a class="nav_faci" href="/${homepage.context_path}/ict/kiosk/vertical/ai.do">
                 <img alt="Ai" src="/resources/ict/kioskVertical/img/type_b/info/common/ai.svg" />
             </a>
         </li>
+<%--		<li class="aiMwnu">--%>
+<%--            <a class="nav_faci" onclick="customPopupHtml(`죄송합니다. 현재 서비스 준비 중입니다.<br>더 나은 서비스로 빠른 시일 내에 찾아뵙겠습니다.`);" >--%>
+<%--                <img alt="Ai" src="/resources/ict/kioskVertical/img/type_b/info/common/ai.svg" />--%>
+<%--            </a>--%>
+<%--        </li>--%>
 		<li>
 			<a class="nav_new" href="/${homepage.context_path}/ict/kiosk/vertical/newBook.do" id="newBook_loading">
 				<img alt="신착도서" src="/resources/ict/kioskVertical/img/common/nav_04.svg" />

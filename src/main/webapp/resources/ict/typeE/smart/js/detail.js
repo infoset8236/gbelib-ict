@@ -18,11 +18,9 @@ $(document).ready(function () {
         arrows: false,
         dots: true,
         infinite: sessionStorage.getItem("g_earphone") !== 'Y',
-        focusOnSelect: true,      // 클릭한 항목으로 이동 + 포커스
+        // focusOnSelect: true,      // 클릭한 항목으로 이동 + 포커스
         centerMode: false,        // 필요시 true로 해서 중앙 강조 가능
         asNavFor: '.mainBookList', // ← 핵심: 메인과 동기화
-        // autoplay: true,           // 자동 슬라이드 켜기
-        // autoplaySpeed: 3000,      // 3초마다 다음 슬라이드로 이동 (조정 가능)
         pauseOnHover: true,       // 마우스 올리면 일시정지 (편의성 좋음, 선택)
         pauseOnFocus: true,
     });
@@ -49,13 +47,24 @@ $(document).ready(function () {
 
     // .book 클릭 시에도 강제로 하이라이트 (안전장치)
     $('.bookList').on('click', '.book', function () {
-        setTimeout(applyHighlight, 50); // slick 이벤트 후 약간 지연
+        let loca = this.dataset.loca;
+        let ctrlNo = this.dataset.ctrlno;
+        $(".loadingOverlay").fadeIn(100);
+        location.href="detailVertical.do?vLoca="+loca + "&vCtrl="+ctrlNo;
+        // setTimeout(applyHighlight, 50); // slick 이벤트 후 약간 지연
     });
 
-    // --- 기존 팝업 & 프린트 로직 유지 ---
-    $(document).on('click', '.trigger', function (e) {
-        $('#popup').fadeIn();
-    });
+    $(document).on("click", ".bookDetail", function () {
+        const data = {
+            content1: this.dataset.title,
+            content2: this.dataset.publisher,
+            content3: this.dataset.callno,
+            content4: this.dataset.acsson,
+            content5: this.dataset.author,
+            content6: this.dataset.subloca
+        };
+        popUpClick(data, this.dataset.type);
+    })
 
     $(document).on('click', '.close', function () {
         if (typeof bodyOpen === "function") bodyOpen();
@@ -68,6 +77,13 @@ $(document).ready(function () {
     });
 });
 
+function popUpClick(data, type = 'detail') {
+    Object.entries(data).forEach(([key, value]) => {
+        $(".popup_" + key).text(value ?? "");
+    });
+
+    $('#popup').fadeIn();
+}
 
 /**
  * 청구기호 파싱
@@ -138,7 +154,6 @@ function getShelfName(roomName, callNo, itemExtra = "-") {
 
     return {number: "-1",floor:"1F",shelf:roomName};
 }
-
 
 function printReceipt() {
     const printContents = document.querySelector('.printContent').innerHTML;

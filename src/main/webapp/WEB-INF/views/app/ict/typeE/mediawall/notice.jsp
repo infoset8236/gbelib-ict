@@ -57,8 +57,9 @@
 
     .notice_info .notice_title {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         gap: 30px;
+        width: 100%;
     }
 
     .notice_info .notice_title p {
@@ -108,7 +109,7 @@
 
     .slick-track{
         display: flex;
-        gap: 240px;
+        width: fit-content !important;
     }
 
     @media (max-width: 1920px) {
@@ -150,10 +151,6 @@
             width: 450px !important;
             margin: 0 60px;
         }
-
-        .slick-track{
-            gap: 120px;
-        }
     }
 
 
@@ -179,9 +176,9 @@
                             <div class="thum_frame">
                                 <img class="notice_img" src="/resources/ict/kioskVertical/img/common/noimg.png" />
                                 <div class="notice_title">
-                                    <span>
+                                    <!-- <span>
                                         <fmt:formatNumber value="${status.count}" pattern="00" />
-                                    </span>
+                                    </span> -->
                                     <p>${i.title}</p>
                                 </div>
                             </div>
@@ -192,9 +189,9 @@
                             <div class="thum_frame">
                                 <img class="notice_img" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" />
                                 <div class="notice_title">
-                                    <span>
+                                    <!-- <span>
                                         <fmt:formatNumber value="${status.count}" pattern="00" />
-                                    </span>
+                                    </span> -->
                                     <p>${i.title}</p>
                                 </div>
                             </div>
@@ -209,13 +206,13 @@
 <script>
     $(function() {
         $('.notice_slider').slick({
-            infinite: true, // 무한 반복
-            slidesToShow: 3, // 한 화면에 보이는 슬라이드 개수
-            slidesToScroll: 1, // 한 번에 넘기는 슬라이드 개수
-            speed: 10000, // 슬라이드 이동 속도
-            autoplay: true, // 자동 재생
-            autoplaySpeed: 0, // 지연 시간 0
-            cssEase: 'linear', // 부드러운 움직임
+            infinite: true, 
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            speed: 10000, 
+            autoplay: true,
+            autoplaySpeed: 0, 
+            cssEase: 'linear',
             arrows: false
            
         });

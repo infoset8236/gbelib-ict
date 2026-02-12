@@ -55,6 +55,7 @@
 <!--</div>-->
 <div class="back" onclick="history.back();"></div>
 
+<%--
 <c:choose>
 	<c:when test="${sessionScope.member.loginType eq 'HOMEPAGE' and sessionScope.member.login}">
 		<div class="user">
@@ -102,3 +103,4 @@
 		</div>
 	</c:when>
 </c:choose>
+--%>

@@ -41,7 +41,7 @@ public class LibSearchAPI {
 	 * @return
 	 */
 	@SuppressWarnings ("unchecked")
-	public static List<Map<String, Object>> getBookKeywordSearchList2(LibrarySearch librarySearch) {
+	public static List<Map<String, Object>> getBookKeywordSearchList2(LibrarySearch librarySearch,String url) {
 		Map<String, Object> param = new HashMap<String, Object>();
 
 		param.put("keyword", librarySearch.getKeyword());
@@ -83,12 +83,12 @@ public class LibSearchAPI {
 
 			}
 		}
-        return getYyRecommentDation(param);
+		return getRecommentDation(param, url);
 	}
 
-	private static List<Map<String, Object>> getYyRecommentDation(Map<String, Object> param) {
+	private static List<Map<String, Object>> getRecommentDation(Map<String, Object> param,String url) {
 		Map<String, Object> result;
-		result = CommonAPI.sendYyKeyword("recommendation/topic", param);
+		result = CommonAPI.sendAiKeyword("recommendation/topic", param, url);
 
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
@@ -104,7 +104,7 @@ public class LibSearchAPI {
 		}
 		return list;
 	}
-	public static List<Map<String, Object>> aiRecomendation(LibrarySearch config) {
+	public static List<Map<String, Object>> aiRecomendation(LibrarySearch config, String url) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		Map<String, Object> result = null;
 
@@ -114,7 +114,7 @@ public class LibSearchAPI {
 		params.put("rec_num", 20);
 		params.put("stream", "false");
 
-		result = CommonAPI.sendYyAiAPI("recommendation/emb-search", params);
+		result = CommonAPI.sendAiAPI("recommendation/emb-search", params, url);
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		if (result != null) {
 			try {

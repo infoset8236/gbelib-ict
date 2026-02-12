@@ -28,6 +28,7 @@
 <script>
 </script>
 <body>
+
 <div class="dim">
     <div class="container" tabindex="0">
         <div class="scrollDownArea">
@@ -75,7 +76,17 @@
                                         <span>${fn:escapeXml(detail.dsItemDetail[0].CALL_NO)}</span>
                                     </div>
                                 </div>
-<%--                                <a href="javascript:void(0);" class="trigger" onclick="">서가위치보기</a>--%>
+                                    <a href="javascript:void(0);"
+                                       class="trigger bookDetail"
+                                       data-type="detail"
+                                       data-title="${fn:escapeXml(detail.dsItemDetail[0].TITLE)}"
+                                       data-publisher="${fn:escapeXml(detail.dsItemDetail[0].PUBLISHER)}"
+                                       data-callno="${fn:escapeXml(detail.dsItemDetail[0].CALL_NO)}"
+                                       data-acsson="${fn:escapeXml(detail.dsItemDetail[0].ACSSON_NO)}"
+                                       data-author="${fn:escapeXml(detail.dsItemDetail[0].AUTHOR)}"
+                                       data-subloca="${fn:replace(fn:escapeXml(detail.dsItemDetail[0].SUB_LOCA_NAME), '(신관)', '')}">
+                                        서지정보보기
+                                    </a>
                             </div>
                         </div>
 
@@ -92,7 +103,7 @@
                         </div>
                     </div>
                     <c:forEach items="${newBookList.dsNewBookList}" var="i" varStatus="status">
-                        <div class="mainBookListItem">
+                        <div class="mainBookListItem" >
                             <div class="bookInformation">
                                 <div class="mainBookImage">
                                     <img src="${i.COVER_SMALLURL}" onerror="this.src='/resources/ict/typeE/common/img/common/dummy.png'" alt="">
@@ -103,31 +114,41 @@
                                     </div>
                                     <div class="mainBookAuthor">${i.AUTHOR}</div>
                                     <div class="mainBookMeta">
-                                            <%--                                        <div tabindex="0">--%>
-                                            <%--                                            발행년도--%>
-                                            <%--                                            <span>${fn:escapeXml(i.PUBLISHER_YEAR)}</span>--%>
-                                            <%--                                        </div>--%>
+                                        <div tabindex="0">
+                                            발행년도
+                                            <span>${fn:escapeXml(i.PUBLER_YEAR)}</span>
+                                        </div>
                                         <div tabindex="0">
                                             ISBN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <span>${i.ISBN}</span>
                                         </div>
                                         <div tabindex="0">
                                             소장위치
-                                            <span>예천도서관</span>
+                                            <span>${i.LOCA_NAME}</span>
                                         </div>
                                         <div tabindex="0">
                                             청구기호
                                             <span>${fn:escapeXml(i.CALL_NO)}</span>
                                         </div>
                                     </div>
-                                        <%--                                    <a href="javascript:void(0);" class="trigger" onclick="seogaQR('${i.reg_no}', '${i.manage_code}');" tabindex="0">서가위치보기</a>--%>
+                                    <a href="javascript:void(0);"
+                                       class="trigger bookDetail"
+                                       data-type="newDetail"
+                                       data-title="${fn:escapeXml(i.TITLE)}"
+                                       data-publisher="${fn:escapeXml(i.PUBLER)}"
+                                       data-callno="${fn:escapeXml(i.CALL_NO)}"
+                                       data-acsson="${fn:escapeXml(i.CTRLNO)}"
+                                       data-author="${fn:escapeXml(i.AUTHOR)}"
+                                       data-subloca="${fn:replace(fn:escapeXml(i.LOCA_NAME), '(신관)', '')}">
+                                        서지정보보기
+                                    </a>
                                 </div>
                             </div>
 
                             <div class="mainBookDesc" tabindex="0">
                                 <div>책소개</div>
                                 <div class="noData">
-                                    등록된 책소개가 없어요
+                                    ${empty i.contentsDetail ? '등록된 책소개가 없습니다.' : i.contentsDetail}
                                 </div>
                                 <div>
                                 </div>
@@ -137,27 +158,27 @@
                 </div>
 
                 <div class="bookList">
-                    <div class="book" tabindex="0">
-                        <div>
-                            <c:choose>
-                                <c:when test="${detail.dsItemDetail[0].IMAGE_URL eq ''}">
-                                    <img src="/resources/ict/typeD/common/img/common/dummy.png" alt=""
-                                         class="bookImage">
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="${detail.dsItemDetail[0].IMAGE_URL}" alt="" class="bookImage">
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="bookTitle" tabindex="0">${detail.dsItemDetail[0].TITLE}</div>
-                            <div class="bookAuthor" tabindex="0">${detail.dsItemDetail[0].AUTHOR}</div>
-                        </div>
-                    </div>
+<%--                    <div class="book" tabindex="0" data-loca="${detail.dsItemDetail[0].LOCA}" data-ctrlno="${detail.dsItemDetail[0].CTRLNO}">--%>
+<%--                        <div>--%>
+<%--                            <c:choose>--%>
+<%--                                <c:when test="${detail.dsItemDetail[0].IMAGE_URL eq ''}">--%>
+<%--                                    <img src="/resources/ict/typeD/common/img/common/dummy.png" alt=""--%>
+<%--                                         class="bookImage">--%>
+<%--                                </c:when>--%>
+<%--                                <c:otherwise>--%>
+<%--                                    <img src="${detail.dsItemDetail[0].IMAGE_URL}" alt="" class="bookImage">--%>
+<%--                                </c:otherwise>--%>
+<%--                            </c:choose>--%>
+<%--                            <div class="bookTitle" tabindex="0">${detail.dsItemDetail[0].TITLE}</div>--%>
+<%--                            <div class="bookAuthor" tabindex="0">${detail.dsItemDetail[0].AUTHOR}</div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <c:forEach items="${newBookList.dsNewBookList}" var="i" varStatus="status">
-                        <div class="book" tabindex="0">
+                        <div class="book" tabindex="0" data-loca="${i.LOCA}" data-ctrlno="${i.CTRLNO}">
                             <div>
                                 <c:choose>
                                     <c:when test="${i.COVER_SMALLURL eq ''}">
-                                        <img src="/resources/ict/typeD/common/img/common/dummy.png" alt=""
+                                        <img src="/resources/ict/typeE/common/img/common/dummy.png" alt=""
                                              class="bookImage">
                                     </c:when>
                                     <c:otherwise>
@@ -177,47 +198,43 @@
     </div>
     <div id="popup" class="popup">
         <div class="popupContent">
-            <img class="mapImage" src="/resources/ict/typeE/common/img/common/dummy.png" alt="">
             <div class="popupDetails">
                 <div class="popupDetailsMeta">
                     <div class="metaInfoWrap">
                         <div class="metaBasic">
-                            <div>도서명&nbsp;&nbsp;&nbsp;&nbsp;<span>${fn:escapeXml(detail.dsItemDetail[0].TITLE)}</span></div>
-                            <div>소장위치<span>${fn:replace(fn:escapeXml(detail.dsItemDetail[0].SUB_LOCA_NAME), '(신관)', '')}</span></div>
-                            <div>청구기호<span>${fn:escapeXml(detail.dsItemDetail[0].CALL_NO)}</span></div>
-                        </div>
-                        <div class="metaShelf">
-                            <div class="metaShelfLabel">서가번호</div>
-                            <div class="metaShelfNum" style="display: flex; flex-direction: column; align-items: flex-end">
-                                <div class="metaFloor" style="font-size: 2.625rem">${fn:replace(fn:escapeXml(detail.dsItemDetail[0].SUB_LOCA_NAME), '(신관)', '')}</div>
-                                <div class="metaSection" style="font-size:1.625rem; display: none">21</div>
-                            </div>
+                            <div>도서명&nbsp;&nbsp;<span class="popup_content1"></span></div>
+                            <div>출판사&nbsp;<span class="popup_content2"></span></div>
+                            <div>청구기호<span class="popup_content3"></span></div>
+                            <div>등록번호<span class="popup_content4"></span></div>
+                            <div>저자<span class="popup_content5"></span></div>
+                            <div>자료위치<span class="popup_content6"></span></div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="btnWrapper">
                 <button class="close" tabindex="0" >닫기</button>
-                <button class="print" tabindex="0" >인쇄</button>
+
+                <c:set var="remoteAddr" value="<%=request.getRemoteAddr()%>"/>
+                <c:if test="${remoteAddr ne '10.204.27.27'}">
+                    <button class="print" tabindex="0" >인쇄</button>
+                </c:if>
             </div>
         </div>
     </div>
 
     <div style="display: none">
         <div class="popupContent printContent">
-            <img class="mapImage printMapImage" src="/resources/ict/typeE/common/img/common/dummy.png" alt="">
             <div class="popupDetails">
                 <div class="popupDetailsMeta">
                     <div class="metaInfoWrap">
                         <div class="metaBasic">
-                            <div>서명:&nbsp;<span> ${fn:escapeXml(detail.dsItemDetail[0].TITLE)}</span></div>
-                            <div>출판사:&nbsp;<span> ${fn:escapeXml(detail.dsItemDetail[0].PUBLISHER)}</span></div>
-                            <div>청구기호:&nbsp;<span> ${fn:escapeXml(detail.dsItemDetail[0].CALL_NO)}</span></div>
-                            <div>등록번호:&nbsp;<span> ${fn:escapeXml(detail.dsItemDetail[0].ACSSON_NO)}</span></div>
-                            <div>저자:&nbsp;<span> ${fn:escapeXml(detail.dsItemDetail[0].AUTHOR)}</span></div>
-                            <div>자료위치:&nbsp;<span> ${fn:replace(fn:escapeXml(detail.dsItemDetail[0].SUB_LOCA_NAME), '(신관)', '')}</span></div>
-                            <div>서가명:&nbsp;<span class="metaFloor"></span> <span class="metaSection"></span></div>
+                            <div>도서명:&nbsp;<span class="popup_content1"> ${fn:escapeXml(detail.dsItemDetail[0].TITLE)}</span></div>
+                            <div>출판사:&nbsp;<span class="popup_content2"> ${fn:escapeXml(detail.dsItemDetail[0].PUBLISHER)}</span></div>
+                            <div>청구기호:&nbsp;<span class="popup_content3"> ${fn:escapeXml(detail.dsItemDetail[0].CALL_NO)}</span></div>
+                            <div>등록번호:&nbsp;<span class="popup_content4"> ${fn:escapeXml(detail.dsItemDetail[0].ACSSON_NO)}</span></div>
+                            <div>저자:&nbsp;<span class="popup_content5"> ${fn:escapeXml(detail.dsItemDetail[0].AUTHOR)}</span></div>
+                            <div>자료위치:&nbsp;<span class="popup_content6"> ${fn:replace(fn:escapeXml(detail.dsItemDetail[0].SUB_LOCA_NAME), '(신관)', '')}</span></div>
                             <br/>
                             <div>=======================</div>
                         </div>
@@ -231,5 +248,15 @@
     </div>
 </div>
 </body>
+<script>
+    function goDetail(LOCA, CTRLNO) {
+        $('#verDetailForm #vLoca').val(LOCA);
+        $('#verDetailForm #vCtrl').val(CTRLNO);
+        $('form#verDetailForm').submit();
+
+        $(".loadingOverlay").fadeIn(100);
+        $(".loadingOverlay").fadeOut(100);
+    }
+</script>
 
 </html>
