@@ -50,7 +50,7 @@
                                         <img alt="" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                     </c:when>
                                     <c:otherwise>
-                                        <img alt="" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
+                                        <img alt="" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
                                              onerror="this.onerror=null; this.src='/resources/ict/typeD/common/img/common/dummy.png';" />
                                     </c:otherwise>
                                 </c:choose>
@@ -65,7 +65,7 @@
                                         <img alt="" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                     </c:when>
                                     <c:otherwise>
-                                        <img alt="" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
+                                        <img alt="" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
                                              onerror="this.onerror=null; this.src='/resources/ict/typeD/common/img/common/dummy.png';" />
                                     </c:otherwise>
                                 </c:choose>

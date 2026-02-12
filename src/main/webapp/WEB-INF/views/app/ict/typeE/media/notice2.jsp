@@ -39,7 +39,7 @@
                     </c:when>
                     <c:otherwise>
                         <div class="infoItem">
-                            <img class="infoImg" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt=${i.title} />
+                            <img class="infoImg" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" alt=${i.title} />
                             <div class="infoItemText">${i.title}</div>
                         </div>
                     </c:otherwise>

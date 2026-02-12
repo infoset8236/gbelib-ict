@@ -188,7 +188,7 @@
                     <c:otherwise>
                         <div class="frame_img swiper-slide">
                             <div class="thum_frame">
-                                <img class="notice_img" src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" />
+                                <img class="notice_img" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" />
                                 <div class="notice_title">
                                     <!-- <span>
                                         <fmt:formatNumber value="${status.count}" pattern="00" />

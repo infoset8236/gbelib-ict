@@ -43,7 +43,7 @@
                                 <img src="/resources/ict/typeD/common/img/common/dummy.png" alt="공지사항 이미지">
                             </c:when>
                             <c:otherwise>
-                                <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
+                                <img src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
                                      onerror="this.src='/resources/ict/typeD/common/img/common/dummy.png'"
                                      alt="공지사항 이미지">
                             </c:otherwise>
@@ -60,7 +60,7 @@
                                 <img src="/resources/ict/typeD/common/img/common/dummy.png" alt="썸네일">
                             </c:when>
                             <c:otherwise>
-                                <img src="/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
+                                <img src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}"
                                      onerror="this.src='/resources/ict/typeD/common/img/common/dummy.png'"
                                      alt="썸네일">
                             </c:otherwise>
