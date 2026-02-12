@@ -83,64 +83,22 @@ public class InfoController extends BaseController {
         return basePath(request) + type + "/facility";
     }
 
-    /*@RequestMapping(value = {"/{type}/event.*"})
+    @RequestMapping(value = {"/{type}/event.*"})
     public String event (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+        try {
+            Map<String, Object> eventList = IctAPI.getEventList(homepage.getHomepage_id());
 
-        CalendarManage cm = new CalendarManage();
-
-        if (StringUtils.isEmpty(cm.getPlan_date())) {
-            cm = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
-        }
-        cm.setHomepage_id(homepage.getHomepage_id());
-        List<CalendarManage> eventList = null;
-        if (homepage.getHomepage_id().equals("h17")) {
-            eventList = calendarManageService.getToDayEvent(cm);
-            sf = new SimpleDateFormat("yyyy-MM-dd");
-            String planDate = sf.format(Calendar.getInstance().getTime());
-            List<Teach> teachList = teachService.getTeachListForCalendar(cm);
-            for (int i = 0; i< teachList.size(); i++) {
-                Teach teach = teachList.get(i);
-                String start_date = teach.getStart_date();
-                String end_date = teach.getEnd_date();
-                Calendar cal = Calendar.getInstance(); // 서버 로컬 타임존 기준
-                int dayCode = cal.get(Calendar.DAY_OF_WEEK);
-                for (String day : teach.getTeach_day_arr()) {
-                    if ( dayCode == Integer.parseInt(day) ) {
-                        if (start_date.compareTo(planDate) <= 0 && end_date.compareTo(planDate) >= 0) {
-                            boolean isHoliday = false;
-                            if (teach.getHolidays() != null && !teach.getHolidays().isEmpty()) {
-                                for ( String holiday : teach.getHolidays() ) {
-                                    if (StringUtils.equals(planDate, holiday)) {
-                                        isHoliday = true;
-                                    }
-                                }
-                            }
-                            // 휴관일이 아닌경우
-                            if (!isHoliday) {
-                                CalendarManage calendarManage = new CalendarManage();
-                                calendarManage.setTitle("[강좌]"+teach.getTeach_name());
-                                calendarManage.setStart_time(teach.getStart_time());
-                                calendarManage.setEnd_time(teach.getEnd_time());
-                                calendarManage.setContents(teach.getTeach_stage());
-                                eventList.add(calendarManage);
-                            }
-                        }
-
-                    }
-                }
+            if (eventList.get("eventList") != null) {
+                model.addAttribute("eventList", eventList.get("eventList"));
             }
-
-        } else {
-            eventList = calendarManageService.getEvent(cm);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        model.addAttribute("eventList", eventList);
 
         return basePath(request) + type + "/event";
-    }*/
+    }
 
     @RequestMapping(value = {"/{type}/librarianRecom.*"})
     public String librarianRecom (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
