@@ -290,9 +290,12 @@
 				<div class="close_bt">
 					<div>닫기</div>
 				</div>
-				<div class="print_bt">
-					<div>인쇄</div>
-				</div>
+                <c:set var="remoteAddr" value="<%=request.getRemoteAddr()%>"/>
+                <c:if test="${remoteAddr ne '10.204.27.1'}">
+                    <div class="print_bt">
+                        <div>인쇄</div>
+                    </div>
+                </c:if>
 			</div>
 		</div>
 	</div>
