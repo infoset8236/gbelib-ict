@@ -85,57 +85,51 @@ public class CommonAPI {
 	public static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	public static Document sendILUS(Map<String, Object> param, String post) {
+
 		long start = System.currentTimeMillis();
 		Document doc = null;
 		HttpURLConnection conn = null;
 
 		try {
-			URL url = new URL(ILUS_API_URL);
-			conn = (HttpURLConnection) url.openConnection();
-
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-			conn.setDoOutput(true);
-
-			// 파라미터 생성
-			StringBuilder postData = new StringBuilder();
+			StringBuilder query = new StringBuilder();
 			if (param != null) {
 				for (Map.Entry<String, Object> entry : param.entrySet()) {
-					if (postData.length() != 0) postData.append("&");
-					postData.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-					postData.append("=");
-					postData.append(URLEncoder.encode(String.valueOf(entry.getValue()), "UTF-8"));
+					if (query.length() != 0) query.append("&");
+					query.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+					query.append("=");
+					query.append(URLEncoder.encode(String.valueOf(entry.getValue()), "UTF-8"));
 				}
-
-				log.debug("@@@@@@@@@@@@@@@@@@ ILUS API : " + ILUS_API_URL + "?" + postData);
-				System.out.println("@@@@@@@@@@@@@@@@@@ ILUS API : " + ILUS_API_URL + "?" + postData);
 			}
 
-			// 전송
-			OutputStream os = conn.getOutputStream();
-			os.write(postData.toString().getBytes("UTF-8"));
-			os.flush();
-			os.close();
+			String fullUrl = ILUS_API_URL + "?" + query.toString();
+			log.debug("ILUS API CALL : {}", fullUrl);
 
-			// 응답 처리
+			URL url = new URL(fullUrl);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setConnectTimeout(10000);
+			conn.setReadTimeout(10000);
+
 			InputStream is = conn.getInputStream();
 
-			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			doc = builder.parse(is);
+			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+			org.xml.sax.InputSource inputSource = new org.xml.sax.InputSource(isr);
+			inputSource.setEncoding("UTF-8");
+
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			doc = builder.parse(inputSource);
 
 			is.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("ILUS API Exception", e);
 		} finally {
-			if (conn != null) {
-				conn.disconnect();
-			}
+			if (conn != null) conn.disconnect();
 		}
 
 		long end = System.currentTimeMillis();
-		log.debug("@@@@@@@@@@@@@@@@@@ ILUS API TIME : " + (end-start)/1000.0);
+		log.debug("ILUS API TIME : {}", (end - start) / 1000.0);
 
 		return doc;
 	}
