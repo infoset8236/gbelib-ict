@@ -638,6 +638,12 @@ public class MediawallController extends BaseController {
         return res;
     }*/
 
+    @RequestMapping(value = {"/star{num}.*"})
+    public String star (@PathVariable String context_path, @PathVariable("num") int num, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        return basePath(request) + "star" + num;
+    }
+
     private void setBoardListToModel(String homepage_id, Model model) {
 
     }
