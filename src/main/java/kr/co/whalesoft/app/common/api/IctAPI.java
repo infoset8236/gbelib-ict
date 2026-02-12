@@ -60,13 +60,9 @@ public class IctAPI {
 
             log.info("@@@@@@@@@@@@@@@@@@ HOMEPAGE_API_URL : " + apiUrl);
 
-            // 3. 연결
-            URL url = new URL(apiUrl);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            connection.setDoOutput(false);
-            connection.setRequestProperty("Accept-Charset", "UTF-8");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+            // 3. 연결 (initConn 조건 그대로)
+            connection = initConn(apiUrl);
+            connection.setRequestMethod("GET"); // GET으로 전환
 
             // 4. 결과 읽기
             InputStream is = connection.getInputStream();
@@ -133,6 +129,13 @@ public class IctAPI {
         putIfNotEmpty(params, "content", content);
 
         return sendAPI("guestbookSave.do", params);
+    }
+
+    @RequestMapping(value = {"/news.*"})
+    public static Map<String, Object> getNews() {
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        return sendAPI("news.do", params);
     }
 
     private static void putIfNotEmpty(Map<String, Object> params, String key, String value, boolean stripDash) {

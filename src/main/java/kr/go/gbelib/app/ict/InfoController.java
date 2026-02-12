@@ -269,44 +269,16 @@ public class InfoController extends BaseController {
 
     @RequestMapping(value = {"/{type}/livingInfo.*"})
     public String livingInfo (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String result = CommonAPI.getNews();
-
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            String rssData = result;
+            Map<String, Object> newsList = IctAPI.getNews();
 
-            InputSource is = new InputSource(new StringReader(rssData));
-            Document doc = builder.parse(is);
-
-            NodeList itemList = doc.getElementsByTagName("item");
-            List<Map<String, String>> items = new ArrayList<Map<String, String>>();
-
-            for (int i = 0; i < itemList.getLength(); i++) {
-                Node itemNode = itemList.item(i);
-                if (itemNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element itemElement = (Element) itemNode;
-
-                    Map<String, String> itemData = new HashMap<String, String>();
-                    itemData.put("title", getElementValue(itemElement, "title"));
-                    itemData.put("link", getElementValue(itemElement, "link"));
-                    itemData.put("category", getElementValue(itemElement, "category"));
-                    itemData.put("description", getElementValue(itemElement, "description"));
-                    String pubDate = getElementValue(itemElement, "pubDate");
-                    if (pubDate != null && pubDate.indexOf("+") > -1) {
-                        pubDate = pubDate.substring(0, pubDate.lastIndexOf("+")).trim();
-                    }
-                    itemData.put("pubDate", pubDate);
-
-                    items.add(itemData);
-                }
+            if (newsList.get("livingInfoList") != null) {
+                model.addAttribute("livingInfoList", newsList.get("livingInfoList"));
             }
-
-            model.addAttribute("livingInfoList", items);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         return basePath(request) + type + "/livingInfo";
     }
