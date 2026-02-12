@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.DocumentBuilder;
@@ -85,10 +86,10 @@ public class CommonAPI {
 	public static final Charset UTF_8 = Charset.forName("UTF-8");
 
 	public static Document sendILUS(Map<String, Object> param, String post) {
-
 		long start = System.currentTimeMillis();
 		Document doc = null;
 		HttpURLConnection conn = null;
+		InputStream is = null;
 
 		try {
 			StringBuilder query = new StringBuilder();
@@ -102,7 +103,8 @@ public class CommonAPI {
 			}
 
 			String fullUrl = ILUS_API_URL + "?" + query.toString();
-			log.debug("ILUS API CALL : {}", fullUrl);
+			log.debug("ILUS API CALL URL : {}", fullUrl);
+			log.debug("ILUS API CALL PARAMS : {}", param);
 
 			URL url = new URL(fullUrl);
 			conn = (HttpURLConnection) url.openConnection();
@@ -110,26 +112,57 @@ public class CommonAPI {
 			conn.setConnectTimeout(10000);
 			conn.setReadTimeout(10000);
 
-			InputStream is = conn.getInputStream();
+			int responseCode = conn.getResponseCode();
+			log.debug("ILUS API RESPONSE CODE : {}", responseCode);
 
-			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
-			org.xml.sax.InputSource inputSource = new org.xml.sax.InputSource(isr);
-			inputSource.setEncoding("UTF-8");
+			if (responseCode >= 200 && responseCode < 300) {
+				is = conn.getInputStream();
+			} else {
+				is = conn.getErrorStream();
+				if (is != null) {
+					String errorBody = new BufferedReader(new InputStreamReader(is, "UTF-8"))
+							.lines()
+							.collect(Collectors.joining("\n"));
+					log.error("ILUS API ERROR RESPONSE [{}] : {}", responseCode, errorBody);
+				} else {
+					log.error("ILUS API ERROR RESPONSE [{}] : errorStream is null", responseCode);
+				}
+				return null;
+			}
+
+			String rawBody = new BufferedReader(new InputStreamReader(is, "UTF-8"))
+					.lines()
+					.collect(Collectors.joining("\n"));
+			log.debug("ILUS API RESPONSE BODY : {}", rawBody);
+
+			if (rawBody == null || rawBody.trim().isEmpty()) {
+				log.warn("ILUS API RESPONSE BODY is empty");
+				return null;
+			}
 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			doc = builder.parse(inputSource);
+			doc = builder.parse(new org.xml.sax.InputSource(new java.io.StringReader(rawBody)));
 
-			is.close();
+			log.debug("ILUS API XML PARSE SUCCESS, rootElement : {}", doc.getDocumentElement().getTagName());
 
+		} catch (java.net.SocketTimeoutException e) {
+			log.error("ILUS API TIMEOUT (ConnectTimeout or ReadTimeout)", e);
+		} catch (java.net.UnknownHostException e) {
+			log.error("ILUS API UnknownHost - URL 또는 DNS 확인 필요 : {}", ILUS_API_URL, e);
+		} catch (javax.xml.parsers.ParserConfigurationException | org.xml.sax.SAXException e) {
+			log.error("ILUS API XML PARSE ERROR", e);
 		} catch (Exception e) {
 			log.error("ILUS API Exception", e);
 		} finally {
+			if (is != null) {
+				try { is.close(); } catch (Exception ignore) {}
+			}
 			if (conn != null) conn.disconnect();
-		}
 
-		long end = System.currentTimeMillis();
-		log.debug("ILUS API TIME : {}", (end - start) / 1000.0);
+			long end = System.currentTimeMillis();
+			log.debug("ILUS API TIME : {}s", (end - start) / 1000.0);
+		}
 
 		return doc;
 	}
