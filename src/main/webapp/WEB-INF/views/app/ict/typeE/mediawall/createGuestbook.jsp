@@ -73,6 +73,7 @@
                 type: "POST",
                 dataType: "json",
                 data: {
+					homepage_id: "${homepage.homepage_id}",
                     user_name: nickname,
                     content: content
                 },

@@ -3,6 +3,7 @@ package kr.go.gbelib.app.ict;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.common.api.IctAPI;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.go.gbelib.app.common.api.CommonAPI;
@@ -64,7 +65,15 @@ public class KioskController extends BaseController {
     public String notice (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        setBoardListToModel(homepage.getHomepage_id(), model);
+        try {
+            Map<String, Object> boardList = IctAPI.getNoticeList(homepage.getHomepage_id());
+
+            if (boardList.get("noticeList") != null) {
+                model.addAttribute("noticeList", boardList.get("noticeList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + type + "/notice";
     }
@@ -332,7 +341,15 @@ public class KioskController extends BaseController {
     public String librarian (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        setBoardListToModelIct(homepage.getHomepage_id(), model);
+        try {
+            Map<String, Object> boardList = IctAPI.getBoardList(homepage.getHomepage_id());
+
+            if (boardList.get("librarianRecommendList") != null) {
+                model.addAttribute("librarianRecommendList", boardList.get("librarianRecommendList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + type + "/librarian";
     }
@@ -342,15 +359,6 @@ public class KioskController extends BaseController {
 
         return basePath(request) + type + "/librarianDetail";
     }
-
-    private void setBoardListToModel(String homepage_id, Model model) {
-
-    }
-
-    private void setBoardListToModelIct(String homepage_id, Model model) {
-
-    }
-
 
     @RequestMapping(value = {"/{type}/ai.*"})
     public String ai(@PathVariable String context_path,@PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {

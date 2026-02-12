@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.app.cms.member.Member;
+import kr.co.whalesoft.app.common.api.IctAPI;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.go.gbelib.app.common.api.CommonAPI;
@@ -628,7 +629,15 @@ public class SmartController extends BaseController {
     public String librarianRecom(@PathVariable String context_path, LibrarySearch librarySearch, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        setBoardListToModel(homepage.getHomepage_id(), model);
+        try {
+            Map<String, Object> boardList = IctAPI.getBoardList(homepage.getHomepage_id());
+
+            if (boardList.get("librarianRecommendList") != null) {
+                model.addAttribute("librarianRecommendList", boardList.get("librarianRecommendList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + "/librarianRecom";
     }
@@ -1003,9 +1012,5 @@ public class SmartController extends BaseController {
     public String rfid(@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         return basePath(request) + "rfid";
-    }
-
-    private void setBoardListToModel(String homepage_id, Model model) {
-
     }
 }

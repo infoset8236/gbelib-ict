@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.ict;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.common.api.IctAPI;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -60,6 +61,16 @@ public class InfoController extends BaseController {
     @RequestMapping(value = {"/{type}/notice.*"})
     public String notice (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
+
+        try {
+            Map<String, Object> boardList = IctAPI.getNoticeList(homepage.getHomepage_id());
+
+            if (boardList.get("noticeList") != null) {
+                model.addAttribute("noticeList", boardList.get("noticeList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setBoardListToModel(homepage.getHomepage_id(), model);
 
@@ -135,7 +146,15 @@ public class InfoController extends BaseController {
     public String librarianRecom (@PathVariable String context_path, @PathVariable String type, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        setBoardListToModelIct(homepage.getHomepage_id(), model);
+        try {
+            Map<String, Object> boardList = IctAPI.getBoardList(homepage.getHomepage_id());
+
+            if (boardList.get("librarianRecommendList") != null) {
+                model.addAttribute("librarianRecommendList", boardList.get("librarianRecommendList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + type + "/librarianRecom";
     }
@@ -322,9 +341,6 @@ public class InfoController extends BaseController {
     }
 
     private void setBoardListToModel(String homepage_id, Model model) {
-    }
-
-    private void setBoardListToModelIct(String homepage_id, Model model) {
     }
 
     private static String getElementValue(Element parent, String tagName) {

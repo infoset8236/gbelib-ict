@@ -1,6 +1,7 @@
 package kr.go.gbelib.app.ict;
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.common.api.IctAPI;
 import kr.co.whalesoft.framework.base.BaseController;
 import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
@@ -137,7 +138,15 @@ public class MediaController extends BaseController {
 
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        setBoardListToModel(homepage.getHomepage_id(), model);
+        try {
+            Map<String, Object> boardList = IctAPI.getNoticeList(homepage.getHomepage_id());
+
+            if (boardList.get("noticeList") != null) {
+                model.addAttribute("noticeList", boardList.get("noticeList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + "notice" + num;
     }
@@ -337,10 +346,6 @@ public class MediaController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void setBoardListToModel(String homepage_id, Model model) {
-
     }
 
     private static String getElementValue(Element parent, String tagName) {

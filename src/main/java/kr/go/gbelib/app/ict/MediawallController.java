@@ -2,7 +2,9 @@ package kr.go.gbelib.app.ict;
 
 
 import kr.co.whalesoft.app.cms.homepage.Homepage;
+import kr.co.whalesoft.app.common.api.IctAPI;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.co.whalesoft.framework.utils.JsonResponse;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.bookImage.BookImageService;
 import kr.go.gbelib.app.intro.search.LibrarySearch;
@@ -11,8 +13,8 @@ import org.apache.commons.lang.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,67 +76,32 @@ public class MediawallController extends BaseController {
     public String notice (@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        setBoardListToModel(homepage.getHomepage_id(), model);
+        try {
+            Map<String, Object> boardList = IctAPI.getNoticeList(homepage.getHomepage_id());
+
+            if (boardList.get("noticeList") != null) {
+                model.addAttribute("noticeList", boardList.get("noticeList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + "notice";
     }
 
     @RequestMapping(value = {"/event.*"})
     public String event (@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        /*Homepage homepage = (Homepage) request.getAttribute("homepage");
+        Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
+        try {
+            Map<String, Object> eventList = IctAPI.getEventList(homepage.getHomepage_id());
 
-        CalendarManage cm = new CalendarManage();
-
-        if (StringUtils.isEmpty(cm.getPlan_date())) {
-            cm = new CalendarManage(sf.format(Calendar.getInstance().getTime()));
-        }
-        cm.setHomepage_id(homepage.getHomepage_id());
-
-        List<CalendarManage> eventList = null;
-        if (homepage.getHomepage_id().equals("h17") || homepage.getHomepage_id().equals("h23")) {
-            eventList = calendarManageService.getToDayEvent(cm);
-            sf = new SimpleDateFormat("yyyy-MM-dd");
-            String planDate = sf.format(Calendar.getInstance().getTime());
-            List<Teach> teachList = teachService.getTeachListForCalendar(cm);
-            for (int i = 0; i< teachList.size(); i++) {
-                Teach teach = teachList.get(i);
-                String start_date = teach.getStart_date();
-                String end_date = teach.getEnd_date();
-                Calendar cal = Calendar.getInstance(); // 서버 로컬 타임존 기준
-                int dayCode = cal.get(Calendar.DAY_OF_WEEK);
-                for (String day : teach.getTeach_day_arr()) {
-                    if ( dayCode == Integer.parseInt(day) ) {
-                        if (start_date.compareTo(planDate) <= 0 && end_date.compareTo(planDate) >= 0) {
-                            boolean isHoliday = false;
-                            if (teach.getHolidays() != null && !teach.getHolidays().isEmpty()) {
-                                for ( String holiday : teach.getHolidays() ) {
-                                    if (StringUtils.equals(planDate, holiday)) {
-                                        isHoliday = true;
-                                    }
-                                }
-                            }
-                            // 휴관일이 아닌경우
-                            if (!isHoliday) {
-                                CalendarManage calendarManage = new CalendarManage();
-                                calendarManage.setTitle("[강좌]"+teach.getTeach_name());
-                                calendarManage.setStart_time(teach.getStart_time());
-                                calendarManage.setEnd_time(teach.getEnd_time());
-                                calendarManage.setContents(teach.getTeach_stage());
-                                eventList.add(calendarManage);
-                            }
-                        }
-
-                    }
-                }
+            if (eventList.get("eventList") != null) {
+                model.addAttribute("eventList", eventList.get("eventList"));
             }
-
-        } else {
-            eventList = calendarManageService.getEvent(cm);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        model.addAttribute("eventList", eventList);*/
 
         return basePath(request) + "event";
     }
@@ -554,98 +521,53 @@ public class MediawallController extends BaseController {
         return basePath(request) + "galleryAll";
     }
 
-    /*@RequestMapping(value = {"/guestbook.*"})
-    public String guestbook (@PathVariable String context_path, Board board, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping(value = {"/guestbook.*"})
+    public String guestbook (@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Homepage homepage = (Homepage) request.getAttribute("homepage");
 
-        board.setHomepage_id(homepage.getHomepage_id());
-        List<Board> guestbookList = boardService.getGuestbookList(board);
+        try {
+            Map<String, Object> guestbookList = IctAPI.getGuestbook(homepage.getHomepage_id());
 
-        model.addAttribute("guestbookList", guestbookList);
+            if (guestbookList.get("guestbookList") != null) {
+                model.addAttribute("guestbookList", guestbookList.get("guestbookList"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return basePath(request) + "guestbook";
     }
 
     @RequestMapping(value = {"/createGuestbook.*"})
-    public String createGuestbook (@PathVariable String context_path, Board board, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String createGuestbook (@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         return basePath(request) + "createGuestbook";
     }
 
     @RequestMapping(value = {"/guestbookSave.*"}, method = RequestMethod.POST)
-	public @ResponseBody JsonResponse guestbookSave(Model model, Board board, BindingResult result, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Homepage homepage = (Homepage) request.getAttribute("homepage");
-
-        board.setHomepage_id(homepage.getHomepage_id());
-
-        BoardWordFilter boardWordFilter = boardWordFilterService.getBoardWordFilterOne();
-
+	public @ResponseBody JsonResponse guestbookSave(@RequestParam("homepage_id") String homepage_id, @RequestParam("user_name") String user_name, @RequestParam("content") String content, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
         JsonResponse res = new JsonResponse(request);
 
-        if (boardService.getOneGuestbookByUserName(board) > 0) {
-            res.setValid(false);
-            res.setMessage("하루에 한번만 전자방명록 등록이 가능합니다.");
-            return res;
-        }
+        try {
+            Map<String, Object> guestbookSave = IctAPI.getGuestbookSave(homepage_id, user_name, content);
 
-        if (StringUtils.isNotEmpty(boardWordFilter.getWord())) {
-            StringTokenizer st = new StringTokenizer(boardWordFilter.getWord(), ",");
-            while(st.hasMoreTokens()) {
-                String wordFilter = st.nextToken().trim();
-
-                if(board.getUser_name().indexOf(wordFilter) > -1) {
-                    res.setValid(false);
-                    res.setMessage(wordFilter + "는(은) 사용할 수 없는 단어입니다.");
-
-                    return res;
-                }
-                if(board.getContent().indexOf(wordFilter) > -1) {
-                    res.setValid(false);
-                    res.setMessage(wordFilter + "는(은) 사용할 수 없는 단어입니다.");
-
-                    return res;
-                }
+            if (guestbookSave.get("valid") != null && guestbookSave.get("message") != null) {
+                res.setValid((Boolean) guestbookSave.get("valid"));
+                res.setMessage((String) guestbookSave.get("message"));
             }
-        }
-
-        if(!result.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(board.getUser_name() + "\n");
-            sb.append(board.getContent() + "\n");
-
-            String checkFilter = WebFilterCheckUtils.webFilterCheck("전자방명록 작성자", "전자방명록", sb.toString());
-			if (checkFilter != null) {
-				res.setValid(false);
-                res.setMessage("개인정보는 방명록에 등록하실수 없습니다.");
-
-				return res;
-			}
-
-            int addCount = boardService.addGuestbook(board);
-
-            if (addCount > 0) {
-                res.setValid(true);
-				res.setMessage("방명록에 새 글이 등록 되었습니다.");
-            } else {
-                res.setValid(false);
-                res.setMessage("방명록 작성에 실패하였습니다. 관리자에게 문의해 주세요.");
-            }
-        } else {
+        } catch (Exception e) {
+            e.printStackTrace();
             res.setValid(false);
-			res.setMessage("방명록 작성에 실패하였습니다. 관리자에게 문의해 주세요.");
+            res.setMessage("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
         }
 
         return res;
-    }*/
+    }
 
     @RequestMapping(value = {"/star{num}.*"})
     public String star (@PathVariable String context_path, @PathVariable("num") int num, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         return basePath(request) + "star" + num;
-    }
-
-    private void setBoardListToModel(String homepage_id, Model model) {
-
     }
 
 }
