@@ -50,22 +50,44 @@ window.onload = function () {
 
 $(document).ready(function () {
     function loadDustStatus() {
+        const CACHE_KEY = "dust_gyeongbuk_v1";
+        const TTL_MS = 5 * 60 * 1000; // 5분
+
+        try {
+            const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+            if (cached && (Date.now() - cached.ts) < TTL_MS && cached.text) {
+                $('#dust_condi_txt').html(cached.text);
+                return;
+            }
+        } catch (e) {}
+
         $.ajax({
             url: 'https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty'
                 + '?serviceKey=mTUxHmLUNKyKUBHLXufR151ng2cL%2FNjVt9pv5EEf6Y7f0nuysgoums4NDoEEO5Rjlf5%2BEIalMrDIdPMxDo7SPA%3D%3D'
                 + '&returnType=xml&numOfRows=100&pageNo=1&sidoName=%EA%B2%BD%EB%B6%81&ver=1.0',
             dataType: "json",
             type: "GET",
+            timeout: 4000,
             success: function (data) {
-                var dustStatus = data.response.body.items[0].pm10Grade1h;
-                var text = "보통";
+                const dustStatus = data?.response?.body?.items?.[0]?.pm10Grade1h;
+                let text = "보통";
                 if (dustStatus === '1') text = "좋음";
                 else if (dustStatus === '2') text = "보통";
                 else if (dustStatus === '3') text = "나쁨";
                 else if (dustStatus === '4') text = "매우나쁨";
+
                 $('#dust_condi_txt').html(text);
+
+                try {
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), text }));
+                } catch (e) {}
             },
             error: function () {
+                // 캐시라도 있으면 캐시값 사용, 없으면 기본값
+                try {
+                    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+                    if (cached?.text) return $('#dust_condi_txt').html(cached.text);
+                } catch (e) {}
                 $('#dust_condi_txt').html('보통');
             }
         });
@@ -113,7 +135,7 @@ $(document).ready(function () {
                 $('#today_icon').attr('src', iconUrl);
                 $('#current_condition').html(description);
 
-                // 📌 식중독 지수 계산
+                // 식중독 지수 계산
                 let foodRisk = "안전";
                 if (currentTemp >= 30) foodRisk = "매우 위험";
                 else if (currentTemp >= 25) foodRisk = "주의";
@@ -127,7 +149,7 @@ $(document).ready(function () {
                 }
                 $('#food_condi_txt').html(foodRisk);
 
-                // 📌 주간 예보
+                // 주간 예보
                 var forecastHtml = '';
                 let dayCount = 0;
                 const today = new Date().getDate();
@@ -173,7 +195,7 @@ $(document).ready(function () {
                         dayCount++;
                     }
 
-                    if (dayCount >= 6) break; // ✅ 오늘 포함 총 6개
+                    if (dayCount >= 6) break; // 오늘 포함 총 6개
                 }
 
                 $('#forecast_frame').html(forecastHtml);
@@ -181,6 +203,7 @@ $(document).ready(function () {
         });
     }
 
-    loadDustStatus();
+    loadDustStatus()
     loadWeather();
+
 })
