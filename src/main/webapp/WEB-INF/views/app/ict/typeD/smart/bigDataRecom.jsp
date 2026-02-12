@@ -69,11 +69,13 @@
 
                 <div class="bookSlide">
                     <c:forEach items="${popularBookList}" var="i">
-                        <a href="javascript:void(0)" class="book" tabindex="0">
-                            <img src="${i.bookImageURL}" alt="책 표지">
-                            <div>${i.bookname}</div>
-                            <div>${i.authors}</div>
-                        </a>
+                        <c:if test="${not empty i.bookImageURL}">
+                            <a href="javascript:void(0)" class="book" tabindex="0">
+                                <img src="${i.bookImageURL}" alt="책 표지">
+                                <div>${i.bookname}</div>
+                                <div>${i.authors}</div>
+                            </a>
+                        </c:if>
                     </c:forEach>
                 </div>
             </div>
