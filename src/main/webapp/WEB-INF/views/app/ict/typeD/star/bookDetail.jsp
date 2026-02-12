@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/ict/typeD/common/css/font.css">
     <link rel="stylesheet" type="text/css" href="/resources/ict/typeD/common/css/common.css">
     <link rel="stylesheet" type="text/css" href="/resources/ict/typeD/common/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/resources/ict/typeD/star/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/resources/ict/typeD/star/css/navigation.css?v=1.3">
     <link rel="stylesheet" href="/resources/ict/typeD/common/css/slick.css"/>
     <link rel="stylesheet" href="/resources/ict/typeD/common/css/slick-theme.css"/>
     <link rel="stylesheet" type="text/css" href="/resources/ict/typeD/star/css/bookDetail.css">
@@ -194,7 +194,7 @@
 
             </div>
             <div class="back" onclick="history.back();"></div>
-            <jsp:include page="/WEB-INF/views/app/ict/typeD/smart/nav.jsp"/>
+            <jsp:include page="/WEB-INF/views/app/ict/typeD/star/nav.jsp"/>
         </div>
     </div>
     <div id="popup" class="popup">
