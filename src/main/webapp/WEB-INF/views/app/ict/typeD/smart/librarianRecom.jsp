@@ -53,8 +53,8 @@
                 </c:if>
 
                 <c:if test="${fn:length(librarianRecommendList) > 0}">
-                    <c:forEach items="${librarianRecommendList}" var="i" varStatus="status">
-                        <div class="bookList">
+                    <div class="bookList">
+                        <c:forEach items="${librarianRecommendList}" var="i" varStatus="status">
                             <a href="javascript:void(0);" class="book" tabindex="0" onclick="goDetail('${i.imsi_v_5}','L_ISBN');">
                                 <c:choose>
                                     <c:when test="${i.preview_img ne null}">
@@ -74,8 +74,8 @@
                                 <div>${i.title}</div>
                                 <div>${i.imsi_v_3}</div>
                             </a>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </div>
                 </c:if>
             </div>
             <jsp:include page="/WEB-INF/views/app/ict/typeD/smart/nav.jsp"/>

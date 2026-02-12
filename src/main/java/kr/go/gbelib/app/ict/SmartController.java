@@ -282,7 +282,7 @@ public class SmartController extends BaseController {
     }
 
     @RequestMapping(value = {"/login.*"})
-    public String login (@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String login (@PathVariable String context_path, Model model, Member member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         return basePath(request) + "login";
     }
