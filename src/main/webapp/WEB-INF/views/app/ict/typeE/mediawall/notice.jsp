@@ -100,6 +100,7 @@
     .notice_info .notice_slider .frame_img {
         display: inline-block;
         width: 900px !important;
+        margin: 0 120px;
     }
 
     .swiper-wrapper {

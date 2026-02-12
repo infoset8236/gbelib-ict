@@ -40,6 +40,7 @@
 
 .libNotice .libNoticeSub {
     width: 58rem;
+    display: flex;
 }
 
 .libNotice .libNoticeSub .libNoticeSlide {
@@ -50,7 +51,8 @@
     box-shadow: 15px 20px 40px 0 rgba(0, 0, 0, 0.20);
     margin: 0 3.12rem 2rem 0;
 }
-.libNotice .libNoticeSub .slick-current .libNoticeSlide{
+.libNotice .libNoticeSub .slick-current .libNoticeSlide,
+.libNoticeSlide.active {
     border: 3px solid #000;
 }
 
