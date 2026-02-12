@@ -8,13 +8,11 @@
 			DESCRIPTION_INFO_TBL
 		WHERE
 			isbn = #{isbn}
-		AND 
-			ROWNUM = 1
+		LIMIT 1
 	</select>
-	
+
 	<insert id="addDescription">
-		INSERT INTO
-			DESCRIPTION_INFO_TBL
+		INSERT INTO DESCRIPTION_INFO_TBL
 		(
 			ISBN, DESCRIPTION
 		) VALUES (

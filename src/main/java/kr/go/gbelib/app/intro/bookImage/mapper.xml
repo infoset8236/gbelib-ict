@@ -8,12 +8,11 @@
 			IMAGE_THUMBNAILURL_INFO_TBL
 		WHERE
 			isbn = #{isbn}
-		AND 
-			ROWNUM = 1
+		LIMIT 1
 	</select>
-	
+
 	<insert id="addImage">
-		INSERT INTO 
+		INSERT INTO
 			IMAGE_THUMBNAILURL_INFO_TBL
 		(
 			ISBN, URL
