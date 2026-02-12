@@ -58,8 +58,8 @@
         <a href="/${homepage.context_path}/ict/star/hub.do">홈으로</a>
     </div>
 
-<%--    <a class="goToAI" href="/${homepage.context_path}/ict/smartBook/ai.do" aria-label="AI안내" tabindex="0"></a>--%>
-    <a class="goToAI" onclick="showCommonPopupHtml(`죄송합니다. 현재 서비스 준비 중입니다.<br>더 나은 서비스로 빠른 시일 내에 찾아뵙겠습니다.`);" href="#" aria-label="AI안내" tabindex="0"></a>
+    <a class="goToAI" href="/${homepage.context_path}/ict/star/ai.do" aria-label="AI안내" tabindex="0"></a>
+<%--    <a class="goToAI" onclick="showCommonPopupHtml(`죄송합니다. 현재 서비스 준비 중입니다.<br>더 나은 서비스로 빠른 시일 내에 찾아뵙겠습니다.`);" href="#" aria-label="AI안내" tabindex="0"></a>--%>
     <div class="navigation">
         <a id="index" href="/${homepage.context_path}/ict/star/main.do" data-paths="/${homepage.context_path}/ict/star/main.do" tabindex="0">메인</a>
         <a id="starBook" href="/${homepage.context_path}/ict/star/search.do" data-paths="/${homepage.context_path}/ict/star/search.do" tabindex="0">별자리BOOK</a>

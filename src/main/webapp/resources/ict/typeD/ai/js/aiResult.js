@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     function getData() {
         $.ajax({
-            url: "aiResultList.do?question=" + searchText + "&context_path=" + context_path + "&sourceType=" + source_type,
+            url: "/yy/ict/smartBook/aiResultList.do?question=" + searchText + "&context_path=" + context_path + "&sourceType=" + source_type,
             type: "GET",
             dataType: "json",
             success: function (res) {
@@ -61,7 +61,7 @@ $(document).ready(function () {
                             let loadingTimeout = null;
                             $(".loadingOverlay").fadeIn(7000);
                             $.ajax({
-                                url: "aiLibraryagent.do?search_text=" + searchText ,
+                                url: "/yy/ict/smartBook/aiLibraryagent.do?search_text=" + searchText ,
                                 type: "GET",
                                 dataType: "json",
                                 success: function (res){
@@ -220,7 +220,7 @@ function remToPx(rem) {
 
 function seoga(vLoca, vCtrl) {
 
-    const bookDetailUrl = `getDetailInfo.do?vLoca=${vLoca}&vCtrl=${vCtrl}`;
+    const bookDetailUrl = `/yy/ict/smartBook/getDetailInfo.do?vLoca=${vLoca}&vCtrl=${vCtrl}`;
     $.ajax({
         url: bookDetailUrl,
         type: 'GET',

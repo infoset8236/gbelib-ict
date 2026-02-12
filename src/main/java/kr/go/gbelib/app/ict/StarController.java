@@ -3,6 +3,7 @@ package kr.go.gbelib.app.ict;
 import kr.co.whalesoft.app.cms.homepage.Homepage;
 import kr.co.whalesoft.app.cms.login.LoginService;
 import kr.co.whalesoft.framework.base.BaseController;
+import kr.go.gbelib.app.common.api.CommonAPI;
 import kr.go.gbelib.app.common.api.LibSearchAPI;
 import kr.go.gbelib.app.intro.bookDescription.BookDescriptionService;
 import kr.go.gbelib.app.intro.bookImage.BookImageService;
@@ -15,15 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = {"/{context_path}/ict/star"})
@@ -188,4 +187,55 @@ public class StarController extends BaseController {
 
         return String.format("redirect:/%s/ict/smartBook/main.do", context_path);
     }
+
+    @RequestMapping(value = {"/ai.*"})
+    public String ai(@PathVariable String context_path, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return basePath(request) + "ai";
+    }
+
+    @RequestMapping(value = {"/aiResult.*"})
+    public String aiResult(LibrarySearch librarySearch, @PathVariable String context_path, Model model, @RequestParam(value = "question", required = false) String question, HttpServletRequest request) {
+        if (question == null) {
+            question = "";
+        }
+        librarySearch.setSearch_text(question);
+
+        model.addAttribute("searchText", question);
+        return basePath(request) + "aiResult";
+    }
+
+    @RequestMapping(value = {"/aiDetail.*"})
+    public String aiDetail (@PathVariable String context_path, LibrarySearch librarySearch, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, Object> result = LibSearchAPI.getBookDetail(librarySearch);
+
+        try {
+            result = bookImageService.resultImageMap(result ,librarySearch, "dsItemDetail", "IMAGE_URL");
+            bookDescriptionService.resultDescriptionMap(result, librarySearch, "dsItemDetail", "contentsDetail");
+
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("input", librarySearch.getSearch_text());
+            params.put("isbn", librarySearch.getIsbn());
+
+            String apiUrl = null;
+            if (context_path.equals("yc")) {
+                apiUrl = CommonAPI.YC_API_URL;
+            } else if (context_path.equals("yy")) {
+                apiUrl = CommonAPI.YY_API_URL;
+            }
+            Map<String, Object> aiResasonResult = CommonAPI.sendAiAPI("recommendation/reason", params, apiUrl);
+
+            if (aiResasonResult != null) {
+                String reason = aiResasonResult.get("recommend_reason").toString();
+                result.put("reason", reason);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        model.addAttribute("detail", result);
+        model.addAttribute("librarySearch", librarySearch);
+
+        return basePath(request) + "aiDetail";
+    }
+
 }
