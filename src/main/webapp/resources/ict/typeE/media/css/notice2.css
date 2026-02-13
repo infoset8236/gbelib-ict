@@ -60,7 +60,7 @@
 .infoPanelContainer .infoList .infoGroup{
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 5.734375rem 4.765625rem;
   gap: 4.375rem;
 }

@@ -1,3 +1,13 @@
+:root{
+    font-size: 32px;
+}
+@media (max-width: 1920px) {
+    :root{
+        font-size: 16px;
+    }
+
+}
+
 .lib_main_container{
     background: url("/resources/ict/typeE/info/img/main_bg.png") bottom  center / cover no-repeat;
     width: 100%;
