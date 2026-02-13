@@ -133,6 +133,10 @@
   line-height: 130%;
   letter-spacing: -0.03125rem;
   color: #adb5bd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 18rem;
 }
 
 .naPanel .naList .naItem .naContent .naDesc {
