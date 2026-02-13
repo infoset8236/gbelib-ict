@@ -71,7 +71,7 @@
         position: relative;
         display: -webkit-box;
         overflow: hidden;
-        width: 780px;
+        width: 900px;
         text-transform: uppercase;
         color: #191f28;
         -webkit-box-orient: vertical;
@@ -133,7 +133,7 @@
 
         .notice_info .notice_title p {
             font-size: 26px;
-            width: 390px;
+            width: 450px;
         }
 
         .notice_info .notice_title span {

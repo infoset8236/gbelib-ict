@@ -31,14 +31,18 @@ jQuery(function ($) {
   $total.text("/" + totalItems);
 
   function updateCount(currentSlide) {
+    const slidesToShow = $infoList.slick("getSlick").options.slidesToShow;
+    const visibleEnd = currentSlide + slidesToShow; 
+
     let count = 0;
     $infoList
-        .find(".infoGroup")
-        .slice(0, currentSlide + 1)
-        .each(function () {
-          count += $(this).find(".infoItem").length;
-        });
-    $current.text(count);
+            .find(".infoGroup")
+            .slice(0, visibleEnd)
+            .each(function () {
+              count += $(this).find(".infoItem").length;
+            });
+
+    $current.text(Math.min(count, totalItems));
   }
 
   updateCount(0);
