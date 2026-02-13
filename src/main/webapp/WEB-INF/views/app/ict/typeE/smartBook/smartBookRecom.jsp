@@ -59,7 +59,7 @@
                         <c:forEach items="${popularBookList}" var="i" varStatus="status">
 
                             <a href="#" aria-label="제목: 책제목, 저자: 저자명" class="book" tabindex="0" onclick="goDetail('${i.isbn13}','L_ISBN');">
-                                <img src="${i.bookImageURL}" alt="책표지" onerror="this.src='/resources/ict/smartBook/img/common/noimg.png';">
+                                <img src="${i.bookImageURL}" alt="책표지" onerror="this.src='/resources/ict/typeD/common/img/common/dummy.png';">
                                 <div>${i.bookname}</div>
                                 <div>${i.authors}</div>
                             </a>

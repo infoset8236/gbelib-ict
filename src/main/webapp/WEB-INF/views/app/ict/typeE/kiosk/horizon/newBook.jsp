@@ -66,7 +66,7 @@ function goDetail(LOCA, CTRLNO) {
 						<div class="list slide-item" onclick="goDetail('${i.LOCA}','${i.CTRLNO}');">
 							<c:choose>
 								<c:when test="${i.COVER_SMALLURL eq ''}">
-									<img alt="book" src="/resources/ict/common/img/noimg.png" />
+									<img alt="book" src="/resources/ict/typeD/common/img/common/dummy.png" />
 								</c:when>
 								<c:otherwise>
 									<img alt="book" src="${i.COVER_SMALLURL}" />

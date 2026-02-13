@@ -59,7 +59,7 @@
 									<div class="slide-item" onclick="goDetail('${i.LOCA}','${i.CTRLNO}');">
 										<c:choose>
 											<c:when test="${i.COVER_SMALLURL eq ''}">
-												<img src="/resources/ict/common/img/noimg.png" />
+												<img src="/resources/ict/typeD/common/img/common/dummy.png" />
 											</c:when>
 											<c:otherwise>
 												<img src="${i.COVER_SMALLURL}" />
@@ -80,7 +80,7 @@
 									<div class="slide-item" onclick="goDetail('${i.LOCA}','${i.CTRLNO}');">
 										<c:choose>
 											<c:when test="${i.COVER_SMALLURL eq ''}">
-												<img src="/resources/ict/common/img/noimg.png" />
+												<img src="/resources/ict/typeD/common/img/common/dummy.png" />
 											</c:when>
 											<c:otherwise>
 												<img src="${i.COVER_SMALLURL}" />

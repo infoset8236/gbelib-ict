@@ -175,7 +175,7 @@
                     <c:when test="${empty i.preview_img}">
                         <div class="frame_img swiper-slide">
                             <div class="thum_frame">
-                                <img class="notice_img" src="/resources/ict/kioskVertical/img/common/noimg.png" />
+                                <img class="notice_img" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                 <div class="notice_title">
                                     <!-- <span>
                                         <fmt:formatNumber value="${status.count}" pattern="00" />

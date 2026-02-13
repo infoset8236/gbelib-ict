@@ -39,7 +39,7 @@
 								<div class="bookimg_ellipse"></div>
 								<c:choose>
 									<c:when test="${fn:escapeXml(detail.dsItemDetail[0].IMAGE_URL) eq ''}">
-										<img class="book_mainimg" src="/resources/ict/common/img/noimg.png" alt="등록된 이미지가 없습니다. ${fn:escapeXml(detail.dsItemDetail[0].TITLE)} 상세보기"/>
+										<img class="book_mainimg" src="/resources/ict/typeD/common/img/common/dummy.png" alt="등록된 이미지가 없습니다. ${fn:escapeXml(detail.dsItemDetail[0].TITLE)} 상세보기"/>
 									</c:when>
 									<c:otherwise>
 										<img class="book_mainimg" src="${fn:escapeXml(detail.dsItemDetail[0].IMAGE_URL)}" alt="${fn:escapeXml(detail.dsItemDetail[0].TITLE)} 상세보기"/>
@@ -110,7 +110,7 @@
 											<div class="bookimg_ellipse"></div>
 											<c:choose>
 												<c:when test="${i.COVER_SMALLURL eq ''}">
-													<img class="book_mainimg" src="/resources/ict/common/img/noimg.png" />
+													<img class="book_mainimg" src="/resources/ict/typeD/common/img/common/dummy.png" />
 												</c:when>
 												<c:otherwise>
 													<img class="book_mainimg" src="${i.COVER_SMALLURL}" />
@@ -179,7 +179,7 @@
 						<div class="thum_img_wrap">
 							<c:choose>
 								<c:when test="${fn:escapeXml(detail.dsItemDetail[0].IMAGE_URL) eq ''}">
-									<img class="thum_img" src="/resources/ict/common/img/noimg.png" alt="등록된 이미지가 없습니다. ${fn:escapeXml(detail.dsItemDetail[0].TITLE)} 상세보기"/>
+									<img class="thum_img" src="/resources/ict/typeD/common/img/common/dummy.png" alt="등록된 이미지가 없습니다. ${fn:escapeXml(detail.dsItemDetail[0].TITLE)} 상세보기"/>
 								</c:when>
 								<c:otherwise>
 									<img class="thum_img" src="${fn:escapeXml(detail.dsItemDetail[0].IMAGE_URL)}" alt="${fn:escapeXml(detail.dsItemDetail[0].TITLE)} 상세보기"/>
@@ -202,7 +202,7 @@
 									<div class="thum_img_wrap">
 										<c:choose>
 											<c:when test="${i.COVER_SMALLURL eq ''}">
-												<img class="thum_img" src="/resources/ict/common/img/noimg.png" />
+												<img class="thum_img" src="/resources/ict/typeD/common/img/common/dummy.png" />
 											</c:when>
 											<c:otherwise>
 												<img class="thum_img" src="${i.COVER_SMALLURL}" />

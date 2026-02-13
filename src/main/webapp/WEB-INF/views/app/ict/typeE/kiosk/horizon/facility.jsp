@@ -60,7 +60,7 @@
                                                             </div>
                                                             <div class="pic_txt">보존서고1</div>
                                                         </div>
-                                                        <img class="fa_image" src="/resources/ict/kioskVertical/img/type_b/info/facility/noimg.png" alt="보존서고1" />
+                                                        <img class="fa_image" src="/resources/ict/typeD/common/img/common/dummy.png" alt="보존서고1" />
                                                     </div>
                                                 </a>
                                             </li>
@@ -76,7 +76,7 @@
                                                             </div>
                                                             <div class="pic_txt">시청각실</div>
                                                         </div>
-                                                        <img class="fa_image" src="/resources/ict/kioskVertical/img/type_b/info/facility/noimg.png" alt="시청각실" />
+                                                        <img class="fa_image" src="/resources/ict/typeD/common/img/common/dummy.png" alt="시청각실" />
                                                     </div>
                                                 </a>
                                             </li>
@@ -92,7 +92,7 @@
                                                             </div>
                                                             <div class="pic_txt">보존서고2</div>
                                                         </div>
-                                                        <img class="fa_image" src="/resources/ict/kioskVertical/img/type_b/info/facility/noimg.png" alt="보존서고2" />
+                                                        <img class="fa_image" src="/resources/ict/typeD/common/img/common/dummy.png" alt="보존서고2" />
                                                     </div>
                                                 </a>
                                             </li>
@@ -341,7 +341,7 @@
                                                             </div>
                                                             <div class="pic_txt">정보시스템실</div>
                                                         </div>
-                                                        <img class="fa_image" src="/resources/ict/kioskVertical/img/type_b/info/facility/noimg.png" />
+                                                        <img class="fa_image" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                                     </div>
                                                 </a>
                                             </li>

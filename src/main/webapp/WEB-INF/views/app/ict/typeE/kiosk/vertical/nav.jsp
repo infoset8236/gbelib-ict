@@ -46,7 +46,7 @@
 					type: "POST",
 					url: "logout.do",
 					success: function () {
-						window.location.href = "/yc/ict/kiosk/vertical/index.do";
+						window.location.href = "/resources/ict/typeD/common/img/common/dummy.png";
 					},
 					error: function () {
 						customPopup("로그아웃 처리 중 오류가 발생했습니다.");

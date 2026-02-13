@@ -34,7 +34,7 @@
             <c:choose>
                 <c:when test="${empty i.preview_img}">
                     <div class="infoItem">
-                        <img class="infoImg" src="/resources/ict/common/img/noimg.png" alt=${i.title} />
+                        <img class="infoImg" src="/resources/ict/typeD/common/img/common/dummy.png" alt=${i.title} />
                         <div class="infoItemText">${i.title}</div>
                     </div>
                 </c:when>

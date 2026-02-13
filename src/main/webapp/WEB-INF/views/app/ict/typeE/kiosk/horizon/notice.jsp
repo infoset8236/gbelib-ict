@@ -48,7 +48,7 @@
 									<c:choose>
 										<c:when test="${empty i.preview_img}">
 											<div class="slide-item">
-												<img alt="" src="/resources/ict/common/img/noimg.png" />
+												<img alt="" src="/resources/ict/typeD/common/img/common/dummy.png" />
 											</div>
 										</c:when>
 										<c:otherwise>
@@ -68,12 +68,12 @@
 									<c:choose>
 										<c:when test="${empty i.preview_img}">
 											<div class="slide-item">
-												<img alt="" src="/resources/ict/common/img/noimg.png" />
+												<img alt="" src="/resources/ict/typeD/common/img/common/dummy.png" />
 											</div>
 										</c:when>
 										<c:otherwise>
 											<div class="slide-item">
-												<img class="notice_img" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" onerror="this.onerror=null; this.src='/resources/ict/common/img/noimg.png';" />
+												<img class="notice_img" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" onerror="this.onerror=null; this.src='/resources/ict/typeD/common/img/common/dummy.png';" />
 											</div>
 										</c:otherwise>
 									</c:choose>
@@ -88,12 +88,12 @@
 									<c:choose>
 										<c:when test="${empty i.preview_img}">
 											<div class="slide-item">
-												<img alt="" src="/resources/ict/common/img/noimg.png" />
+												<img alt="" src="/resources/ict/typeD/common/img/common/dummy.png" />
 											</div>
 										</c:when>
 										<c:otherwise>
 											<div class="slide-item">
-												<img class="notice_img" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" onerror="this.onerror=null; this.src='/resources/ict/common/img/noimg.png';"/>
+												<img class="notice_img" src="https://gbelib.kr/data/board/${i.manage_idx}/${i.board_idx}/${i.preview_img}" onerror="this.onerror=null; this.src='/resources/ict/typeD/common/img/common/dummy.png';"/>
 											</div>
 										</c:otherwise>
 									</c:choose>

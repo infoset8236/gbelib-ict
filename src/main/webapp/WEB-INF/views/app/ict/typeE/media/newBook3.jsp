@@ -37,10 +37,10 @@
                 <div class="naImg">
                     <c:choose>
                         <c:when test="${i.COVER_SMALLURL eq ''}">
-                            <img class="infoImg" src="/resources/ict/common/img/noimg.png" alt="${i.TITLE}" onerror="this.src='/resources/ict/common/img/noimg.png'">
+                            <img class="infoImg" src="/resources/ict/typeD/common/img/common/dummy.png" alt="${i.TITLE}" onerror="this.src='/resources/ict/typeD/common/img/common/dummy.png'">
                         </c:when>
                         <c:otherwise>
-                            <img class="infoImg" src="${i.COVER_SMALLURL}" alt="${i.TITLE}" onerror="this.src='/resources/ict/common/img/noimg.png'">
+                            <img class="infoImg" src="${i.COVER_SMALLURL}" alt="${i.TITLE}" onerror="this.src='/resources/ict/typeD/common/img/common/dummy.png'">
                         </c:otherwise>
                     </c:choose>
                 </div>

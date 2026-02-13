@@ -77,7 +77,7 @@
                                         <div class="grid-item" onclick="goDetail('${i.imsi_v_8}');">
                                             <c:choose>
                                                 <c:when test="${i.preview_img eq ''}">
-                                                    <img src="/resources/ict/common/img/noimg.png" />
+                                                    <img src="/resources/ict/typeD/common/img/common/dummy.png" />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img src="${i.preview_img}" />
@@ -101,7 +101,7 @@
                                         <div class="grid-item" onclick="goDetail('${i.imsi_v_8}');">
                                             <c:choose>
                                                 <c:when test="${i.preview_img eq ''}">
-                                                    <img src="/resources/ict/common/img/noimg.png" />
+                                                    <img src="/resources/ict/typeD/common/img/common/dummy.png" />
                                                 </c:when>
                                                 <c:otherwise>
                                                     <img src="${i.preview_img}" />
