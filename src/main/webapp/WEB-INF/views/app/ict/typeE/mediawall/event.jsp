@@ -121,6 +121,7 @@
             text-transform: uppercase;
             text-overflow: ellipsis;
             color: #6b7684;
+            width: 24rem;
         }
         .event_wrapper .swiper-pagination{
             padding-top: 0px;
@@ -246,6 +247,7 @@
             }
             .event_wrapper .event_ex {
                 font-size: 36px;
+                width: 12rem;
             }
 
             .event_wrapper .swiper-pagination{
@@ -310,6 +312,45 @@
         <!-- Swiper Container -->
         <div class="swiper-container slider">
             <div class="swiper-wrapper">
+                <div class="swiper-slide con_wrapper">
+                    <h4 class="event_tit">{i.title}</h4>
+                    <div class="time_place">
+                        <div class="time_place_wrap">
+                            <div class="event_label">시간</div>
+                            <div class="event_ex">{i.start_time} ~ {i.end_time}</div>
+                        </div>
+                        <div class="time_place_wrap">
+                            <div class="event_label">장소</div>
+                            <div class="event_ex">{i.contents}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide con_wrapper">
+                    <h4 class="event_tit">{i.title}</h4>
+                    <div class="time_place">
+                        <div class="time_place_wrap">
+                            <div class="event_label">시간</div>
+                            <div class="event_ex">{i.start_time} ~ {i.end_time}</div>
+                        </div>
+                        <div class="time_place_wrap">
+                            <div class="event_label">장소</div>
+                            <div class="event_ex">{i.contents}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide con_wrapper">
+                    <h4 class="event_tit">{i.title}</h4>
+                    <div class="time_place">
+                        <div class="time_place_wrap">
+                            <div class="event_label">시간</div>
+                            <div class="event_ex">{i.start_time} ~ {i.end_time}</div>
+                        </div>
+                        <div class="time_place_wrap">
+                            <div class="event_label">장소</div>
+                            <div class="event_ex">{i.contents}</div>
+                        </div>
+                    </div>
+                </div>
                 <c:forEach items="${eventList}" var="i" varStatus="status">
                     <div class="swiper-slide con_wrapper">
                         <h4 class="event_tit">${i.title}</h4>

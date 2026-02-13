@@ -59,6 +59,12 @@
     margin-bottom: 2.69rem;
 }
 
+.bubbleBox circle{
+    outline: none;
+}
+
+
+
 .change {
     font-family: PretendardMedium, sans-serif;
     font-size: 1.625rem;

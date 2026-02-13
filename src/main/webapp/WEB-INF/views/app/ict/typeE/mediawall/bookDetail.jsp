@@ -80,7 +80,7 @@
                             <div class="img_frame_w">
                                 <c:choose>
                                     <c:when test="${i.COVER_SMALLURL eq ''}">
-                                        <img alt="book" class="book_images" slide="slide_${status.count}" src="/resources/homepage/geic/img/noimg2.png" />
+                                        <img alt="book" class="book_images" slide="slide_${status.count}" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                     </c:when>
                                     <c:otherwise>
                                         <img alt="book" class="book_images" slide="slide_${status.count}" src="${i.COVER_SMALLURL}" />
@@ -107,7 +107,7 @@
                                 <div class="img_frame_w">
                                     <c:choose>
                                         <c:when test="${i.COVER_SMALLURL eq ''}">
-                                            <img alt="book" class="book_images" src="/resources/homepage/geic/img/noimg2.png" />
+                                            <img alt="book" class="book_images" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                         </c:when>
                                         <c:otherwise>
                                             <img alt="book" class="book_images" src="${i.COVER_SMALLURL}" />
@@ -141,7 +141,7 @@
                             <div class="img_frame_w">
                                 <c:choose>
                                     <c:when test="${i.COVER_SMALLURL eq ''}">
-                                        <img alt="book" class="book_images" slide="slide_${status.count}" src="/resources/homepage/geic/img/noimg2.png" />
+                                        <img alt="book" class="book_images" slide="slide_${status.count}" src="/resources/ict/typeD/common/img/common/dummy.png" />
                                     </c:when>
                                     <c:otherwise>
                                         <img alt="book" class="book_images" slide="slide_${status.count}" src="${i.COVER_SMALLURL}" />

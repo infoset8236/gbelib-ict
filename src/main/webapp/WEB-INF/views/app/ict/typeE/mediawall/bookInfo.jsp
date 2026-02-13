@@ -38,7 +38,7 @@
 									<div class="number"><fmt:formatNumber value="${status.count}" pattern="00"/></div>
 									<c:choose>
 										<c:when test="${i.COVER_SMALLURL eq ''}">
-											<img alt="book" src="/resources/ict/smartBook/img/common/noimg.png" />
+											<img alt="book" src="/resources/ict/typeD/common/img/common/dummy.png" />
 										</c:when>
 										<c:otherwise>
 											<img alt="book" src="${i.COVER_SMALLURL}" />
@@ -65,7 +65,7 @@
                     <div class="small_number"><fmt:formatNumber value="${status.index + 1}" pattern="00"/></div>
                     <c:choose>
                         <c:when test="${i.COVER_SMALLURL eq ''}">
-                            <img alt="book" src="/resources/ict/smartBook/img/common/noimg.png" />
+                            <img alt="book" src="/resources/ict/typeD/common/img/common/dummy.png" />
                         </c:when>
                         <c:otherwise>
                             <img alt="book" src="${i.COVER_SMALLURL}" />

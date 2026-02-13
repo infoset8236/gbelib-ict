@@ -234,13 +234,13 @@
 	-webkit-transform: translate(-50%);
 	transform: translate(-50%);
 	text-align: center;
-	letter-spacing: -0.02em;
 	color: var(--gray500, #8b95a1);
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	-webkit-box-pack: center;
 	-ms-flex-pack: center;
 	width: 100%;
+	letter-spacing: 0.44rem;
 }
 @keyframes fadein {
 	from {
